@@ -440,5 +440,70 @@
           });
 </script>
 
+<script type="module">
+  import { fetchAllCategoriesWithCount } from './js/supabaseApi.js';
+
+  function formatNumber(num) {
+    return Number(num).toLocaleString("en-US");
+  }
+
+  async function renderAllCategories() {
+
+    const { data, error } =
+            await fetchAllCategoriesWithCount();
+
+    if (error || !data) {
+      console.error(error);
+      return;
+    }
+
+    const ul = document.querySelector(
+            ".aside-type-list.number"
+    );
+
+    ul.innerHTML = "";
+
+    data.forEach(item => {
+
+      const name = item.category;
+      const slug = item.category_slug;
+      const image = item.category_img;
+      const count = item.count;
+
+      const li = document.createElement("li");
+
+      li.className = "aside-type-item";
+
+      li.innerHTML = `
+      <a href="/used-cars/${slug}/"
+         class="link-cover"></a>
+
+      <img class="aside-type-icon"
+           src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/${image}"
+           alt="${name}">
+
+      <span>
+        <a href="/used-cars/${slug}/"
+           class="aside-type-name">
+           ${name} for Sale
+        </a>
+
+        <span class="aside-type-count general-num">
+          ${formatNumber(count)}
+        </span>
+      </span>
+    `;
+
+      ul.appendChild(li);
+
+    });
+  }
+
+  document.addEventListener(
+          "DOMContentLoaded",
+          renderAllCategories
+  );
+</script>
+
 </body>
 </html>

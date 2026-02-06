@@ -358,7 +358,7 @@
 
         ul.innerHTML = ""; // 清空原内容
 
-        categories.forEach(({ category, total }) => {
+        categories.forEach(({ category, count }) => {
             const meta = CATEGORY_META[category];
             if (!meta) return;
 
@@ -375,7 +375,7 @@
           ${category} for Sale
         </a>
         <span class="aside-type-count general-num">
-          ${formatNumber(total)}
+          ${formatNumber(count)}
         </span>
       </span>
     `;

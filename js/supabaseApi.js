@@ -134,3 +134,124 @@ export async function fetchPopularMakesByState(stateName) {
     }
 }
 
+/**
+ * ==========================================
+ * 查询 listings
+ * 支持：
+ * state
+ * category_slug
+ * make_slug
+ * 分页：每页15条
+ *
+ * 不使用 RPC，直接 SELECT *
+ * ==========================================
+ */
+export async function fetchListings({
+                                        state = null,
+                                        category = null,
+                                        make = null,
+                                        page = 1,
+                                        limit = 15
+                                    } = {}) {
+
+    try {
+
+        const offset = (page - 1) * limit;
+
+        let query = supabase
+            .from('car_listings')
+            .select('*', { count: 'exact' })
+            .order('image_priority', { ascending: true })
+            .order('created_at', { ascending: false })
+            .range(offset, offset + limit - 1);
+
+        if (state) query = query.eq('state', state);
+
+        if (category) query = query.eq('category', category);
+
+        if (make) query = query.eq('make', make);
+
+        const { data, error, count } = await query;
+
+        if (error) {
+            console.error("Supabase error:", error);
+            throw error;
+        }
+
+        // 正确分页排序
+        const sorted = data.sort((a, b) => {
+
+            if (a.image_cover === '404.jpg' && b.image_cover !== '404.jpg')
+                return 1;
+
+            if (a.image_cover !== '404.jpg' && b.image_cover === '404.jpg')
+                return -1;
+
+            return 0;
+        });
+
+        return {
+            data: sorted,
+            count,
+            page,
+            totalPages: Math.ceil(count / limit),
+            error: null
+        };
+
+    } catch (err) {
+
+        console.error('fetchListings 完整错误:', err);
+
+        return {
+            data: null,
+            count: 0,
+            totalPages: 0,
+            error: err.message || err
+        };
+    }
+}
+
+/**
+ * ==========================================
+ * 根据 ID 获取 Listing 详情
+ * SQL 等价:
+ * SELECT * FROM car_listings WHERE id = ?;
+ * ==========================================
+ */
+export async function fetchListingById(id) {
+
+    try {
+
+        if (!id) {
+            throw new Error("ID is required");
+        }
+
+        const { data, error } = await supabase
+            .from('car_listings')
+            .select('*')
+            .eq('id', id)
+            .single(); // 只返回一条
+
+        if (error) {
+            throw new Error(error.message);
+        }
+
+        return {
+            data,
+            error: null
+        };
+
+    } catch (err) {
+
+        console.error('fetchListingById 错误:', err);
+
+        return {
+            data: null,
+            error: err.message
+        };
+    }
+}
+
+
+
+

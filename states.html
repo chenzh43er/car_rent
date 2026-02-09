@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,viewport-fit=cover">
         <title>Used Cars for Sale in the US - Carslyst</title>
         <link rel="stylesheet" href="./css/style.css">
+        <script src="./js/utlParam.js"></script>
 </head>
 <body>
 <header id="header">
@@ -283,117 +284,33 @@
 
 <script type="module">
     import {
-        fetchAllCategoriesWithCount
+        fetchAllCategoriesWithCount,
+        fetchAllStates
     } from './js/supabaseApi.js';
 
+    /* =========================
+       CATEGORY META
+    ========================= */
     const CATEGORY_META = {
-        SUVs: {
-            slug: "suvs",
-            icon: "icon-suvs"
-        },
-        Trucks: {
-            slug: "trucks",
-            icon: "icon-trucks"
-        },
-        Sedans: {
-            slug: "sedans",
-            icon: "icon-sedans"
-        },
-        Hybrids: {
-            slug: "hybrids",
-            icon: "icon-hybrids"
-        },
-        Vans: {
-            slug: "vans",
-            icon: "icon-vans"
-        },
-        Coupes: {
-            slug: "coupes",
-            icon: "icon-coupes"
-        },
-        Hatchbacks: {
-            slug: "hatchbacks",
-            icon: "icon-hatchbacks"
-        },
-        Convertibles: {
-            slug: "convertibles",
-            icon: "icon-convertibles"
-        },
-        Motorcycles: {
-            slug: "motorcycles",
-            icon: "icon-motorcycles"
-        },
-        "Classic Cars": {
-            slug: "classic-cars",
-            icon: "icon-classic-cars"
-        },
-        "RVs & Campers": {
-            slug: "rvs-and-campers",
-            icon: "icon-rvs-and-campers"
-        },
-        Motorhomes: {
-            slug: "motorhomes",
-            icon: "icon-motorhomes"
-        },
-        "Station Wagons": {
-            slug: "station-wagons",
-            icon: "icon-station-wagons"
-        },
-        Trailers: {
-            slug: "trailers",
-            icon: "icon-trailers"
-        }
+        SUVs: { slug: "suvs", icon: "icon-suvs" },
+        Trucks: { slug: "trucks", icon: "icon-trucks" },
+        Sedans: { slug: "sedans", icon: "icon-sedans" },
+        Hybrids: { slug: "hybrids", icon: "icon-hybrids" },
+        Vans: { slug: "vans", icon: "icon-vans" },
+        Coupes: { slug: "coupes", icon: "icon-coupes" },
+        Hatchbacks: { slug: "hatchbacks", icon: "icon-hatchbacks" },
+        Convertibles: { slug: "convertibles", icon: "icon-convertibles" },
+        Motorcycles: { slug: "motorcycles", icon: "icon-motorcycles" },
+        "Classic Cars": { slug: "classic-cars", icon: "icon-classic-cars" },
+        "RVs & Campers": { slug: "rvs-and-campers", icon: "icon-rvs-and-campers" },
+        Motorhomes: { slug: "motorhomes", icon: "icon-motorhomes" },
+        "Station Wagons": { slug: "station-wagons", icon: "icon-station-wagons" },
+        Trailers: { slug: "trailers", icon: "icon-trailers" }
     };
 
-    function formatNumber(num) {
-        return Number(num).toLocaleString("en-US");
-    }
-
-    async function renderCategoryTypes() {
-        const { data: categories, error } = await fetchAllCategoriesWithCount();
-        if (error || !categories) return;
-
-        const ul = document.querySelector(".aside-type-list.number");
-        if (!ul) return;
-
-        ul.innerHTML = ""; // 清空原内容
-
-        categories.forEach(({ category, count }) => {
-            const meta = CATEGORY_META[category];
-            if (!meta) return;
-
-            const li = document.createElement("li");
-            li.className = "aside-type-item";
-
-            li.innerHTML = `
-      <a href="/used-cars/${meta.slug}/" class="link-cover"></a>
-      <svg class="aside-type-icon">
-        <use xlink:href="#${meta.icon}"></use>
-      </svg>
-      <span>
-        <a href="/used-cars/${meta.slug}/" class="aside-type-name">
-          ${category} for Sale
-        </a>
-        <span class="aside-type-count general-num">
-          ${formatNumber(count)}
-        </span>
-      </span>
-    `;
-
-            ul.appendChild(li);
-        });
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-        renderCategoryTypes();
-    });
-
-</script>
-
-<script type="module">
-    import { fetchAllStates } from './js/supabaseApi.js';
-
-    // 州名 → 缩写
+    /* =========================
+       STATE ABBR
+    ========================= */
     const STATE_ABBR = {
         Alabama: "al",
         Alaska: "ak",
@@ -448,16 +365,79 @@
         Wyoming: "wy"
     };
 
+    /* =========================
+       HELPERS
+    ========================= */
+    function formatNumber(num) {
+        return Number(num).toLocaleString("en-US");
+    }
+
+    /* =========================
+       RENDER CATEGORY TYPES
+    ========================= */
+    async function renderCategoryTypes() {
+        const { data: categories, error } = await fetchAllCategoriesWithCount();
+
+        if (error) {
+            console.error("Category fetch error:", error);
+            return;
+        }
+
+        const ul = document.querySelector(".aside-type-list.number");
+        if (!ul) return;
+
+        ul.innerHTML = "";
+
+        categories.forEach(({ category, count }) => {
+
+            const meta = CATEGORY_META[category];
+            if (!meta) return;
+
+            const li = document.createElement("li");
+            li.className = "aside-type-item";
+
+            li.innerHTML = `
+            <a href="/used-cars/${meta.slug}/" class="link-cover"></a>
+
+            <svg class="aside-type-icon">
+                <use xlink:href="#${meta.icon}"></use>
+            </svg>
+
+            <span>
+                <a href="/used-cars/${meta.slug}/"
+                   class="aside-type-name">
+                   ${category} for Sale
+                </a>
+
+                <span class="aside-type-count general-num">
+                    ${formatNumber(count)}
+                </span>
+            </span>
+        `;
+
+            ul.appendChild(li);
+        });
+    }
+
+    /* =========================
+       RENDER STATE LIST
+    ========================= */
     async function renderStateList() {
+
         const { data: states, error } = await fetchAllStates();
-        if (error || !states) return;
+
+        if (error) {
+            console.error("State fetch error:", error);
+            return;
+        }
 
         const ul = document.querySelector(".general-list.state-list");
         if (!ul) return;
 
-        ul.innerHTML = ""; // 清空原有 HTML
+        ul.innerHTML = "";
 
         states.forEach(({ state }) => {
+
             const abbr = STATE_ABBR[state];
             if (!abbr) return;
 
@@ -465,17 +445,31 @@
             li.className = "general-item";
 
             li.innerHTML = `
-      <a href="/used-cars/${abbr}/" class="general-link">
-        <span class="general-name">${state}</span>
-      </a>
-    `;
+            <a href="/used-cars/${abbr}/"
+               class="general-link">
+
+               <span class="general-name">
+                   ${state}
+               </span>
+
+            </a>
+        `;
 
             ul.appendChild(li);
         });
     }
 
-    document.addEventListener("DOMContentLoaded", renderStateList);
+    /* =========================
+       INIT
+    ========================= */
+    document.addEventListener("DOMContentLoaded", () => {
+
+        renderCategoryTypes();
+        renderStateList();
+
+    });
 </script>
+
 
 </body>
 </html>

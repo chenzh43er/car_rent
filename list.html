@@ -7,7 +7,8 @@
   <title>Used SUVs for Sale in Alabama - Carslyst</title>
   <link rel="preload" href="./css/style.css" as="style">
   <link rel="stylesheet" href="./css/style.css">
-<body>
+  <script src="./js/utlParam.js"></script>
+<body style="display: none" id = "mainBody">
 
 <header id="header">
 </header>
@@ -20,136 +21,6 @@
     </div>
     <div class="category-content" style="height: auto !important;">
       <div class="container" style="height: auto !important;">
-        <div class="filter-banner">
-          <div class="filter-scroll-container">
-            <div class="filter-slide-wrap banner">
-              <div class="filter-btn">
-                <span>All Filters</span>
-                <svg class="icon-filter">
-                  <use xlink:href="#icon-filter"></use>
-                </svg>
-
-              </div>
-            </div>
-            <div class="filter-banner-btn state">
-              <span class="banner-state-value">Alabama</span>
-              <svg class="sort-go">
-                <use xlink:href="#icon-go"></use>
-              </svg>
-              <ul class="filter-banner-list">
-                <li class="filter-banner-item active"><a href="/used-cars/suvs/al/">Alabama</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/ak/">Alaska</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/az/">Arizona</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/ar/">Arkansas</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/ca/">California</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/co/">Colorado</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/ct/">Connecticut</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/de/">Delaware</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/fl/">Florida</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/ga/">Georgia</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/hi/">Hawaii</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/id/">Idaho</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/il/">Illinois</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/in/">Indiana</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/ia/">Iowa</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/ks/">Kansas</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/ky/">Kentucky</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/la/">Louisiana</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/me/">Maine</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/md/">Maryland</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/ma/">Massachusetts</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/mi/">Michigan</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/mn/">Minnesota</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/ms/">Mississippi</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/mo/">Missouri</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/mt/">Montana</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/ne/">Nebraska</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/nv/">Nevada</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/nh/">New Hampshire</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/nj/">New Jersey</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/nm/">New Mexico</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/ny/">New York</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/nc/">North Carolina</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/nd/">North Dakota</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/oh/">Ohio</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/ok/">Oklahoma</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/or/">Oregon</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/pa/">Pennsylvania</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/ri/">Rhode Island</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/sc/">South Carolina</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/sd/">South Dakota</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/tn/">Tennessee</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/tx/">Texas</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/ut/">Utah</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/vt/">Vermont</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/va/">Virginia</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/wa/">Washington</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/wv/">West Virginia</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/wi/">Wisconsin</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/wy/">Wyoming</a></li>
-              </ul>
-            </div>
-            <div class="filter-banner-btn city">
-              <span class="banner-city-value">City</span>
-              <svg class="sort-go">
-                <use xlink:href="#icon-go"></use>
-              </svg>
-              <ul class="filter-banner-list">
-                <li class="filter-banner-item"><a href="/used-cars/suvs/al/alabaster/">Alabaster</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/al/anniston/">Anniston</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/al/auburn/">Auburn</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/al/daphne/">Daphne</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/al/dothan/">Dothan</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/al/enterprise/">Enterprise</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/al/eufaula/">Eufaula</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/al/foley/">Foley</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/al/fort-payne/">Fort Payne</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/al/huntsville/">Huntsville</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/al/jasper/">Jasper</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/al/mobile/">Mobile</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/al/montgomery/">Montgomery</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/al/theodore/">Theodore</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/al/tuscaloosa/">Tuscaloosa</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/al/tuscumbia/">Tuscumbia</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/suvs/al/wetumpka/">Wetumpka</a></li>
-              </ul>
-            </div>
-            <div class="filter-banner-btn type">
-              <span class="banner-category-value">SUVs</span>
-              <svg class="sort-go">
-                <use xlink:href="#icon-go"></use>
-              </svg>
-              <ul class="filter-banner-list">
-                <li class="filter-banner-item active"><a href="/used-cars/suvs/al/">SUVs</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/trucks/al/">Trucks</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/sedans/al/">Sedans</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/hybrids/al/">Hybrids</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/vans/al/">Vans</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/coupes/al/">Coupes</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/hatchbacks/al/">Hatchbacks</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/convertibles/al/">Convertibles</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/motorcycles/al/">Motorcycles</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/classic-cars/al/">Classic Cars</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/rvs-and-campers/al/">RVs &amp; Campers</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/motorhomes/al/">Motorhomes</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/station-wagons/al/">Station Wagons</a></li>
-                <li class="filter-banner-item"><a href="/used-cars/trailers/al/">Trailers</a></li>
-              </ul>
-            </div>
-            <div class="filter-banner-btn price">
-              <span class="banner-price-value">Price Range</span>
-              <svg class="sort-go">
-                <use xlink:href="#icon-go"></use>
-              </svg>
-              <div class="price-range-wrap">
-                <input class="min-price" type="text" placeholder="Min Price" oninput="formatMinAccountNumber(this)">
-                <input class="max-price" type="text" placeholder="Max Price" oninput="formatMaxAccountNumber(this)">
-                <div class="filter-confirm-btn">Apply</div>
-              </div>
-
-            </div>
-          </div>
-        </div>
         <div class="sort-wrap">
           <div class="sort-section">
             <div class="filter-slide-wrap">
@@ -161,18 +32,6 @@
                   </svg>
                 </div>
               </div>
-            </div>
-            <span class="sort-label">Sort by </span>
-            <div class="sort-btn">
-              <span class="sort-value">Date</span>
-              <svg class="sort-go">
-                <use xlink:href="#icon-go"></use>
-              </svg>
-              <ul class="sort-list">
-                <li class="sort-item active" data-order="date">Date</li>
-                <li class="sort-item" data-order="priceasc">Price Low</li>
-                <li class="sort-item" data-order="pricedesc">Price High</li>
-              </ul>
             </div>
           </div>
           <span class="sort-title"><span class="general-num"></span>  results found</span>
@@ -186,166 +45,7 @@
         <div class="aside-type">
           <h2>Browse by Make</h2>
           <ul class="aside-type-list number">
-            <li class="aside-type-item">
-              <a href="/car-makes/toyota/al/" class="link-cover"></a>
-              <img class="aside-type-img" src="https://cdn.carslyst.com/car-make/toyota.png" alt="Toyota">
-              <span>
-                                <a href="/car-makes/toyota/al/" class="aside-type-name">Toyota for Sale</a>
-                                <span class="aside-type-count general-num">6,102</span>
-                            </span>
-            </li>
-            <li class="aside-type-item">
-              <a href="/car-makes/honda/al/" class="link-cover"></a>
-              <img class="aside-type-img" src="https://cdn.carslyst.com/car-make/honda.png" alt="Honda">
-              <span>
-                                <a href="/car-makes/honda/al/" class="aside-type-name">Honda for Sale</a>
-                                <span class="aside-type-count general-num">5,282</span>
-                            </span>
-            </li>
-            <li class="aside-type-item">
-              <a href="/car-makes/nissan/al/" class="link-cover"></a>
-              <img class="aside-type-img" src="https://cdn.carslyst.com/car-make/nissan.png" alt="Nissan">
-              <span>
-                                <a href="/car-makes/nissan/al/" class="aside-type-name">Nissan for Sale</a>
-                                <span class="aside-type-count general-num">2,646</span>
-                            </span>
-            </li>
-            <li class="aside-type-item">
-              <a href="/car-makes/hyundai/al/" class="link-cover"></a>
-              <img class="aside-type-img" src="https://cdn.carslyst.com/car-make/hyundai.png" alt="Hyundai">
-              <span>
-                                <a href="/car-makes/hyundai/al/" class="aside-type-name">Hyundai for Sale</a>
-                                <span class="aside-type-count general-num">6,189</span>
-                            </span>
-            </li>
-            <li class="aside-type-item">
-              <a href="/car-makes/ford/al/" class="link-cover"></a>
-              <img class="aside-type-img" src="https://cdn.carslyst.com/car-make/ford.png" alt="Ford">
-              <span>
-                                <a href="/car-makes/ford/al/" class="aside-type-name">Ford for Sale</a>
-                                <span class="aside-type-count general-num">8,801</span>
-                            </span>
-            </li>
-            <li class="aside-type-item">
-              <a href="/car-makes/chevrolet/al/" class="link-cover"></a>
-              <img class="aside-type-img" src="https://cdn.carslyst.com/car-make/chevrolet.png" alt="Chevrolet">
-              <span>
-                                <a href="/car-makes/chevrolet/al/" class="aside-type-name">Chevrolet for Sale</a>
-                                <span class="aside-type-count general-num">8,692</span>
-                            </span>
-            </li>
-            <li class="aside-type-item">
-              <a href="/car-makes/jeep/al/" class="link-cover"></a>
-              <img class="aside-type-img" src="https://cdn.carslyst.com/car-make/jeep.png" alt="Jeep">
-              <span>
-                                <a href="/car-makes/jeep/al/" class="aside-type-name">Jeep for Sale</a>
-                                <span class="aside-type-count general-num">1,737</span>
-                            </span>
-            </li>
-            <li class="aside-type-item">
-              <a href="/car-makes/bmw/al/" class="link-cover"></a>
-              <img class="aside-type-img" src="https://cdn.carslyst.com/car-make/bmw.png" alt="BMW">
-              <span>
-                                <a href="/car-makes/bmw/al/" class="aside-type-name">BMW for Sale</a>
-                                <span class="aside-type-count general-num">2,692</span>
-                            </span>
-            </li>
-            <li class="aside-type-item">
-              <a href="/car-makes/mercedes-benz/al/" class="link-cover"></a>
-              <img class="aside-type-img" src="https://cdn.carslyst.com/car-make/mercedes-benz.png" alt="Mercedes-Benz">
-              <span>
-                                <a href="/car-makes/mercedes-benz/al/" class="aside-type-name">Mercedes-Benz for Sale</a>
-                                <span class="aside-type-count general-num">2,759</span>
-                            </span>
-            </li>
-            <li class="aside-type-item">
-              <a href="/car-makes/kia/al/" class="link-cover"></a>
-              <img class="aside-type-img" src="https://cdn.carslyst.com/car-make/kia.png" alt="Kia">
-              <span>
-                                <a href="/car-makes/kia/al/" class="aside-type-name">Kia for Sale</a>
-                                <span class="aside-type-count general-num">1,593</span>
-                            </span>
-            </li>
-            <li class="aside-type-item">
-              <a href="/car-makes/volkswagen/al/" class="link-cover"></a>
-              <img class="aside-type-img" src="https://cdn.carslyst.com/car-make/volkswagen.png" alt="Volkswagen">
-              <span>
-                                <a href="/car-makes/volkswagen/al/" class="aside-type-name">Volkswagen for Sale</a>
-                                <span class="aside-type-count general-num">1,354</span>
-                            </span>
-            </li>
-            <li class="aside-type-item">
-              <a href="/car-makes/gmc/al/" class="link-cover"></a>
-              <img class="aside-type-img" src="https://cdn.carslyst.com/car-make/gmc.png" alt="GMC">
-              <span>
-                                <a href="/car-makes/gmc/al/" class="aside-type-name">GMC for Sale</a>
-                                <span class="aside-type-count general-num">1,506</span>
-                            </span>
-            </li>
-            <li class="aside-type-item">
-              <a href="/car-makes/dodge/al/" class="link-cover"></a>
-              <img class="aside-type-img" src="https://cdn.carslyst.com/car-make/dodge.png" alt="Dodge">
-              <span>
-                                <a href="/car-makes/dodge/al/" class="aside-type-name">Dodge for Sale</a>
-                                <span class="aside-type-count general-num">1,457</span>
-                            </span>
-            </li>
-            <li class="aside-type-item">
-              <a href="/car-makes/subaru/al/" class="link-cover"></a>
-              <img class="aside-type-img" src="https://cdn.carslyst.com/car-make/subaru.png" alt="Subaru">
-              <span>
-                                <a href="/car-makes/subaru/al/" class="aside-type-name">Subaru for Sale</a>
-                                <span class="aside-type-count general-num">886</span>
-                            </span>
-            </li>
-            <li class="aside-type-item">
-              <a href="/car-makes/lexus/al/" class="link-cover"></a>
-              <img class="aside-type-img" src="https://cdn.carslyst.com/car-make/lexus.png" alt="Lexus">
-              <span>
-                                <a href="/car-makes/lexus/al/" class="aside-type-name">Lexus for Sale</a>
-                                <span class="aside-type-count general-num">844</span>
-                            </span>
-            </li>
-            <li class="aside-type-item">
-              <a href="/car-makes/mazda/al/" class="link-cover"></a>
-              <img class="aside-type-img" src="https://cdn.carslyst.com/car-make/mazda.png" alt="Mazda">
-              <span>
-                                <a href="/car-makes/mazda/al/" class="aside-type-name">Mazda for Sale</a>
-                                <span class="aside-type-count general-num">1,050</span>
-                            </span>
-            </li>
-            <li class="aside-type-item">
-              <a href="/car-makes/ram/al/" class="link-cover"></a>
-              <img class="aside-type-img" src="https://cdn.carslyst.com/car-make/ram.png" alt="RAM">
-              <span>
-                                <a href="/car-makes/ram/al/" class="aside-type-name">RAM for Sale</a>
-                                <span class="aside-type-count general-num">2,562</span>
-                            </span>
-            </li>
-            <li class="aside-type-item">
-              <a href="/car-makes/tesla/al/" class="link-cover"></a>
-              <img class="aside-type-img" src="https://cdn.carslyst.com/car-make/tesla.png" alt="Tesla">
-              <span>
-                                <a href="/car-makes/tesla/al/" class="aside-type-name">Tesla for Sale</a>
-                                <span class="aside-type-count general-num">236</span>
-                            </span>
-            </li>
-            <li class="aside-type-item">
-              <a href="/car-makes/audi/al/" class="link-cover"></a>
-              <img class="aside-type-img" src="https://cdn.carslyst.com/car-make/audi.png" alt="Audi">
-              <span>
-                                <a href="/car-makes/audi/al/" class="aside-type-name">Audi for Sale</a>
-                                <span class="aside-type-count general-num">944</span>
-                            </span>
-            </li>
-            <li class="aside-type-item">
-              <a href="/car-makes/cadillac/al/" class="link-cover"></a>
-              <img class="aside-type-img" src="https://cdn.carslyst.com/car-make/cadillac.png" alt="Cadillac">
-              <span>
-                                <a href="/car-makes/cadillac/al/" class="aside-type-name">Cadillac for Sale</a>
-                                <span class="aside-type-count general-num">716</span>
-                            </span>
-            </li>
+
           </ul>
         </div>
       </div>
@@ -1271,7 +971,7 @@
 
 <script type="module">
 
-  import { fetchListings } from './js/supabaseApi.js';
+  import { fetchListings, fetchPopularMakesByState } from './js/supabaseApi.js';
 
   const limit = 15;
 
@@ -1282,48 +982,28 @@
     const segments =
             url.pathname
                     .split('/')
-                    .filter(Boolean); // 移除空字符串
-
-    /*
-    例如:
-
-    /used-cars/                → ["used-cars"]
-    /used-cars/suvs/          → ["used-cars","suvs"]
-    /used-cars/suvs/al/       → ["used-cars","suvs","al"]
-    */
+                    .filter(Boolean);
 
     let category = null;
     let make = null;
     let state = null;
 
     if (segments.length >= 2) {
-
       category = segments[1];
-
     }
 
     if (segments.length >= 3) {
-
       state = segments[2];
-
     }
-
-    // 如果你有 make 路由，例如 /used-cars/toyota/al/
-    // 可以判断 make 是否存在数据库中，再赋值
-    // 这里暂时简单逻辑
-
-    // make = segments[1]; // 如果你是 make 路由
 
     const page =
             parseInt(url.searchParams.get('page')) || 1;
 
     return {
-
       state,
       category,
       make,
       page
-
     };
   }
 
@@ -1350,9 +1030,11 @@
 
       div.className = 'car-con';
 
+      let detail_url = `./detail.html?id=${car.id}`
+
       div.innerHTML = `
             <div class="car-item">
-              <a href="/used-cars/${car.id}/" class="link-cover"></a>
+              <a href="${detail_url}" class="link-cover"></a>
               <div class="car-pic">
                 <div class="car-pic-pop">POPULAR</div>
                 <img src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/${car.image_cover}" alt="${car.title}">
@@ -1407,8 +1089,6 @@
             document.querySelector('.brpp_pageGo');
 
     container.innerHTML = '';
-
-    // Previous
 
     if (page > 1) {
 
@@ -1477,8 +1157,6 @@
     }
 
 
-    // Next
-
     if (page < totalPages) {
 
       container.innerHTML += `
@@ -1505,27 +1183,16 @@
     const params = getParams();
 
     const result =
-            // await fetchListings({
-            //
-            //   state: params.state,
-            //   category: params.category,
-            //   make: params.make,
-            //   page: params.page,
-            //   limit
-            //
-            // });
+            await fetchListings({
 
-    await fetchListings({
+              state: "Alabama",
+              category: "SUVs",
+              make: "",
+              page: params.page,
+              limit
 
-      state: "Alabama",
-      category: "SUVs",
-      make: "",
-      page: params.page,
-      limit
+            });
 
-    });
-
-    // ✅ 更新 total count
     const totalElement =
             document.querySelector('.sort-title .general-num');
 
@@ -1553,15 +1220,6 @@
   }
 
 
-  document.addEventListener(
-          'DOMContentLoaded',
-          loadPage
-  );
-
-</script>
-
-<script type="module">
-  import { fetchPopularMakesByState } from './js/supabaseApi.js';
 
   const STATE_ABBR = {
     Alabama: "al",
@@ -1617,9 +1275,6 @@
     Wyoming: "wy"
   };
 
-  function formatNumber(num) {
-    return Number(num).toLocaleString("en-US");
-  }
 
   async function renderPopularMakes(stateName) {
 
@@ -1640,7 +1295,7 @@
 
       const makeName = item.make;
       const count = item.count;
-      const image = item.make_img.replace("https://cdn.carslyst.com/car-make/",""); // 例如 toyota.png
+      const image = item.make_img.replace("https://cdn.carslyst.com/car-make/","");
 
       const li = document.createElement("li");
 
@@ -1672,14 +1327,19 @@
 
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", async () => {
 
-    renderPopularMakes("Alabama");
+    await loadPage();
+
+    await renderPopularMakes("Alabama");
+
+    document.getElementById("mainBody").style.display = "block";
 
   });
 
 
 </script>
+
 
 
 </body>

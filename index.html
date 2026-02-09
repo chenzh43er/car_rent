@@ -7,7 +7,7 @@
   <title>Used Car Listings | Find Affordable Vehicles - Carslyst</title>
   <link rel="preload" href="./css/style.css" as="style">
   <link rel="stylesheet" href="./css/style.css">
-  <link rel="manifest" href="/public/static/Js/manifest.json?v-5">
+  <script src="./js/utlParam.js"></script>
 <body>
 
 <header id="header">
@@ -18,7 +18,7 @@
   <div class="banner-content">
     <h1 class="banner-title">Find Affordable <span>Used Cars</span></h1>
     <div class="banner-des">Discover local used car listings by make and type today!</div>
-    <a href="/used-cars/" class="banner-btn">View All Listings</a>
+    <a href="/used-cars/" class="banner-btn" id = "viewAllListings">View All Listings</a>
   </div>
 </div>
 <main style="height: auto !important;">
@@ -261,6 +261,9 @@
 </script>
 
 <script type="module">
+
+
+
   import {
     fetchAllStates,
     fetchAllCategoriesWithCount
@@ -334,15 +337,17 @@
 
     ul.innerHTML = ""; // ✅ 真正清空
 
+
+
     states.forEach(({ state, total }) => {
       const abbr = STATE_ABBR[state];
       if (!abbr) return;
-
+      let state_url = `./types.html?state=${state}`
       const li = document.createElement("li");
       li.className = "category-item";
 
       li.innerHTML = `
-      <a href="/used-cars/${abbr}/" class="link-cover"></a>
+      <a href="${state_url}" class="link-cover"></a>
       <span class="category-text">${state}</span>
       <span class="category-count">
         <span class="general-num">${formatNumber(total)}</span>
@@ -362,6 +367,8 @@
   }
 
   document.addEventListener("DOMContentLoaded", init);
+
+  document.getElementById("viewAllListings").href = "./states.html"
 
 </script>
 

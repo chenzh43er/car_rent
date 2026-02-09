@@ -7,6 +7,7 @@
   <title>2012 Jeep Wrangler Unlimited Rubicon Sport Utility 4D SUV for Sale - Carslyst</title>
   <link rel="preload" href="./css/style.css" as="style">
   <link rel="stylesheet" href="./css/style.css">
+  <script src="./js/utlParam.js"></script>
 <body>
 <header id="header">
 </header>
@@ -545,60 +546,51 @@
 
 <script type="module">
   import {
-    fetchListingById
+    fetchListingById,
+    fetchListings
   } from "./js/supabaseApi.js";
 
+  /*
+  ========================================
+  Detail Page
+  ========================================
+  */
 
   async function loadDetailPage() {
-
-    /*
-    URL:
-    /used-cars/listing-2050306/
-    */
 
     const match =
             window.location.pathname
                     .match(/listing-(\d+)/);
 
-    // if (!match) return;
+    // const id = match ? match[1] : null;
 
-    //const id = match[1];
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    // const id = 173124;
 
-    const id = 173124;
+    console.log(id); // 输出: 123
+
+
+
 
     const { data } =
             await fetchListingById(id);
 
     renderListingDetail(data);
 
+    return data
   }
-
-
-  /**
-   * 渲染 Listing Detail 页面
-   * 包含：
-   * - 标题
-   * - 价格（price 为 null 自动隐藏）
-   * - Detailed Information
-   * - Extras
-   * - Description
-   */
 
   export function renderListingDetail(item) {
 
     if (!item) return;
 
-    /*
-    ========================================
-    工具函数
-    ========================================
-    */
-
     function formatPrice(price) {
 
       if (!price) return null;
 
-      return Number(price).toLocaleString("en-US");
+      return Number(price)
+              .toLocaleString("en-US");
 
     }
 
@@ -635,75 +627,48 @@
     const formattedPrice =
             formatPrice(item.price);
 
-    /*
-    ========================================
-    渲染 Title + Price
-    ========================================
-    */
-
     const titleContainer =
             document.querySelector(".container.detail");
 
     if (titleContainer) {
 
       document.getElementById("slide-img").innerHTML = `
-        <img class="slide-img" src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/${item.image_cover}" alt = "${item.vin}">
-    `
+      <img class="slide-img" src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/${item.image_cover}" alt="${item.vin}">
+    `;
 
       const priceHTML =
               formattedPrice
                       ? `
 <span class="detail-price">
-    $<span class="car-total">${formattedPrice}</span>
+  $<span class="car-total">${formattedPrice}</span>
 </span>
 `
                       : "";
 
       titleContainer.innerHTML = `
-
 <h1>
-
 ${safe(item.title)}
-
 ${priceHTML}
-
 </h1>
-
 `;
 
     }
-
-    /*
-    ========================================
-    VIN Report Link
-    ========================================
-    */
 
     const vinHTML =
             details.vin_lookup
                     ? `
 <div class="vin-href">
-    <a target="_blank"
-       href="${details.vin_lookup}"
-       class="vin-link">
-
-       VIN Report
-
-    </a>
-
-    <svg class="vin-next">
-        <use xlink:href="#icon-next"></use>
-    </svg>
-
+  <a target="_blank"
+     href="${details.vin_lookup}"
+     class="vin-link">
+     VIN Report
+  </a>
+  <svg class="vin-next">
+    <use xlink:href="#icon-next"></use>
+  </svg>
 </div>
 `
                     : "";
-
-    /*
-    ========================================
-    Extras
-    ========================================
-    */
 
     let extrasHTML = "";
 
@@ -714,40 +679,24 @@ ${priceHTML}
 
     }
 
-    /*
-    ========================================
-    Description
-    ========================================
-    */
-
     const descriptionHTML =
             safe(item.full_description) ||
             safe(item.description) ||
             safe(item.summary_description);
-
-    /*
-    ========================================
-    渲染 Features
-    ========================================
-    */
 
     const featuresContainer =
             document.querySelector(".detail-features");
 
     if (!featuresContainer) return;
 
-
-
     featuresContainer.innerHTML = `
-
 <div class="features-top">
 
-    <h2>Detailed Information</h2>
+  <h2>Detailed Information</h2>
 
-    ${vinHTML}
+  ${vinHTML}
 
 </div>
-
 
 <div class="features-content">
 
@@ -783,7 +732,6 @@ ${priceHTML}
 
 </div>
 
-
 <div class="features-des">
 
 <p>${descriptionHTML}</p>
@@ -791,25 +739,20 @@ ${priceHTML}
 </div>
 
 <div class="ad-layout"></div>
-
 `;
 
   }
 
-  document.addEventListener(
-          "DOMContentLoaded",
-          loadDetailPage
-  );
-
-</script>
-
-<script type="module">
-  import { fetchListings } from './js/supabaseApi.js';
-
+  /*
+  ========================================
+  Bottom Cars
+  ========================================
+  */
 
   function renderCarsBottom(data) {
 
-    const container = document.getElementById('car-bottom');
+    const container =
+            document.getElementById('car-bottom');
 
     container.innerHTML = '';
 
@@ -820,43 +763,83 @@ ${priceHTML}
                       ? '/public/static/Images/placeholder.webp'
                       : car.image_cover;
 
-      const div = document.createElement('div');
+      const div =
+              document.createElement('div');
 
       div.className = 'car-con';
 
       div.innerHTML = `
-              <div class="car-item">
-                <a href="/used-cars/detail/${car.id}" class="link-cover"></a>
-                <div class="car-pic">
-                  <div class="car-pic-pop">POPULAR</div>
-                  <img src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/${image}" alt="${car.title}">
-                  <div class="car-pic-tip">
-                    <svg><use xlink:href="#icon-pic"></use></svg>
-                    <span class="car-pic-num">1</span>
-                  </div>
-                </div>
-                <div class="car-content">
-                  <div class="car-title"></div>
-                  <div class="car-info">
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-location"></use></svg>
-                      <span>Alabaster</span>
-                    </div>
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-date"></use></svg>
-                      <span>Jan 03, 2024</span>
-                    </div>
-                  </div>
-                  <div class="car-des"><p>${car.title}</p><p>${car.summary_description}</p></div>
-                  ${
-              car.price !== null && car.price !== undefined && car.price !== ''
+<div class="car-item">
+
+<a href="/used-cars/detail/${car.id}"
+class="link-cover"></a>
+
+<div class="car-pic">
+
+<div class="car-pic-pop">POPULAR</div>
+
+<img src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/${image}" alt="${car.title}">
+
+<div class="car-pic-tip">
+
+<svg>
+<use xlink:href="#icon-pic"></use>
+</svg>
+
+<span class="car-pic-num">1</span>
+
+</div>
+
+</div>
+
+<div class="car-content">
+
+<div class="car-title"></div>
+
+<div class="car-info">
+
+<div class="car-info-item">
+
+<svg>
+<use xlink:href="#icon-location"></use>
+</svg>
+
+<span>Alabaster</span>
+
+</div>
+
+<div class="car-info-item">
+
+<svg>
+<use xlink:href="#icon-date"></use>
+</svg>
+
+<span>Jan 03, 2024</span>
+
+</div>
+
+</div>
+
+<div class="car-des">
+
+<p>${car.title}</p>
+
+<p>${car.summary_description}</p>
+
+</div>
+
+${
+              car.price !== null &&
+              car.price !== undefined &&
+              car.price !== ''
                       ? `<div class="car-prices">$<span class="car-total">${car.price}</span></div>`
-                      : ''}
-                </div>
-              </div>
-              </div>
-            </div>
-        `;
+                      : ''
+      }
+
+</div>
+
+</div>
+`;
 
       container.appendChild(div);
 
@@ -864,115 +847,41 @@ ${priceHTML}
 
   }
 
-  function getParams() {
-
-    const url = new URL(window.location.href);
-
-    const segments =
-            url.pathname
-                    .split('/')
-                    .filter(Boolean); // 移除空字符串
-
-    /*
-    例如:
-
-    /used-cars/                → ["used-cars"]
-    /used-cars/suvs/          → ["used-cars","suvs"]
-    /used-cars/suvs/al/       → ["used-cars","suvs","al"]
-    */
-
-    let category = null;
-    let make = null;
-    let state = null;
-
-    if (segments.length >= 2) {
-
-      category = segments[1];
-
-    }
-
-    if (segments.length >= 3) {
-
-      state = segments[2];
-
-    }
-
-    // 如果你有 make 路由，例如 /used-cars/toyota/al/
-    // 可以判断 make 是否存在数据库中，再赋值
-    // 这里暂时简单逻辑
-
-    // make = segments[1]; // 如果你是 make 路由
-
-    const page =
-            parseInt(url.searchParams.get('page')) || 1;
-
-    return {
-
-      state,
-      category,
-      make,
-      page
-
-    };
-  }
-
-  async function loadBottom() {
-
-    const params = getParams();
+  async function loadBottom(data) {
 
     const result =
-            // await fetchListings({
-            //
-            //   state: params.state,
-            //   category: params.category,
-            //   make: params.make,
-            //   page: params.page,
-            //   limit
-            //
-            // });
-
             await fetchListings({
 
-              state: "Alabama",
+              state: data.state,
               category: "",
-              make: "Jeep",
+              make: data.make,
               page: 1,
               limit: 15
 
             });
-
-    // ✅ 更新 total count
-    const totalElement =
-            document.querySelector('.sort-title .general-num');
-
-    if (totalElement) {
-      totalElement.textContent =
-              formatNumber(result.count);
-    }
-
 
     if (result.error) {
 
       console.error(result.error);
 
       return;
+
     }
+
     renderCarsBottom(result.data);
+
   }
 
-  document.addEventListener(
-          'DOMContentLoaded',
-          loadBottom
-  );
-</script>
-
-<script type="module">
-  import { fetchListings } from './js/supabaseApi.js';
-
+  /*
+  ========================================
+  Aside Cars
+  ========================================
+  */
 
   function renderCarsAside(data) {
 
-    const container = document.getElementById('car-aside');
+    const container =
+            document.getElementById('car-aside');
 
     container.innerHTML = '';
 
@@ -983,42 +892,83 @@ ${priceHTML}
                       ? '/public/static/Images/placeholder.webp'
                       : car.image_cover;
 
-      const div = document.createElement('div');
+      const div =
+              document.createElement('div');
 
       div.className = 'car-con';
 
       div.innerHTML = `
-              <div class="car-con">
-              <div class="car-item">
-                <a href="/used-cars/listing-9067/" class="link-cover"></a>
-                <div class="car-pic">
-                  <img src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/${image}" alt="">
-                  <div class="car-pic-tip">
-                    <svg><use xlink:href="#icon-pic"></use></svg>
-                    <span class="car-pic-num">1</span>
-                  </div>
-                </div>
-                <div class="car-content">
-                  <div class="car-title">${car.title}</div>
-                  <div class="car-info">
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-location"></use></svg>
-                      <span>${car.location}</span>
-                    </div>
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-date"></use></svg>
-                      <span>${car.listing_date}</span>
-                    </div>
-                  </div>
-                  <div class="car-des">${car.summary_description}</div>
-                   ${
-              car.price !== null && car.price !== undefined && car.price !== ''
+<div class="car-con">
+
+<div class="car-item">
+
+<a href="/used-cars/listing-9067/"
+class="link-cover"></a>
+
+<div class="car-pic">
+
+<img src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/${image}" alt="">
+
+<div class="car-pic-tip">
+
+<svg>
+<use xlink:href="#icon-pic"></use>
+</svg>
+
+<span class="car-pic-num">1</span>
+
+</div>
+
+</div>
+
+<div class="car-content">
+
+<div class="car-title">
+${car.title}
+</div>
+
+<div class="car-info">
+
+<div class="car-info-item">
+
+<svg>
+<use xlink:href="#icon-location"></use>
+</svg>
+
+<span>${car.location}</span>
+
+</div>
+
+<div class="car-info-item">
+
+<svg>
+<use xlink:href="#icon-date"></use>
+</svg>
+
+<span>${car.listing_date}</span>
+
+</div>
+
+</div>
+
+<div class="car-des">
+${car.summary_description}
+</div>
+
+${
+              car.price !== null &&
+              car.price !== undefined &&
+              car.price !== ''
                       ? `<div class="car-prices">$<span class="car-total">${car.price}</span></div>`
-                      : ''}
-                </div>
-              </div>
-            </div>
-        `;
+                      : ''
+      }
+
+</div>
+
+</div>
+
+</div>
+`;
 
       container.appendChild(div);
 
@@ -1026,106 +976,52 @@ ${priceHTML}
 
   }
 
-  function getParams() {
-
-    const url = new URL(window.location.href);
-
-    const segments =
-            url.pathname
-                    .split('/')
-                    .filter(Boolean); // 移除空字符串
-
-    /*
-    例如:
-
-    /used-cars/                → ["used-cars"]
-    /used-cars/suvs/          → ["used-cars","suvs"]
-    /used-cars/suvs/al/       → ["used-cars","suvs","al"]
-    */
-
-    let category = null;
-    let make = null;
-    let state = null;
-
-    if (segments.length >= 2) {
-
-      category = segments[1];
-
-    }
-
-    if (segments.length >= 3) {
-
-      state = segments[2];
-
-    }
-
-    // 如果你有 make 路由，例如 /used-cars/toyota/al/
-    // 可以判断 make 是否存在数据库中，再赋值
-    // 这里暂时简单逻辑
-
-    // make = segments[1]; // 如果你是 make 路由
-
-    const page =
-            parseInt(url.searchParams.get('page')) || 1;
-
-    return {
-
-      state,
-      category,
-      make,
-      page
-
-    };
-  }
-
-  async function loadAside() {
-
-    const params = getParams();
+  async function loadAside(data) {
 
     const result =
-            // await fetchListings({
-            //
-            //   state: params.state,
-            //   category: params.category,
-            //   make: params.make,
-            //   page: params.page,
-            //   limit
-            //
-            // });
-
             await fetchListings({
 
-              state: "Alabama",
-              category: "SUVs",
+              state: data.state,
+              category: data.category,
               make: "",
               page: 1,
               limit: 15
 
             });
 
-    // ✅ 更新 total count
-    const totalElement =
-            document.querySelector('.sort-title .general-num');
-
-    if (totalElement) {
-      totalElement.textContent =
-              formatNumber(result.count);
-    }
-
-
     if (result.error) {
 
       console.error(result.error);
 
       return;
+
     }
+
     renderCarsAside(result.data);
+
   }
 
-  document.addEventListener(
-          'DOMContentLoaded',
-          loadAside
-  );
+  /*
+  ========================================
+  Init
+  ========================================
+  */
+
+  document.addEventListener("DOMContentLoaded", async () => {
+
+    const data = await loadDetailPage();
+
+    console.log(data);
+
+    loadBottom(data)
+
+    loadAside(data)
+
+  });
+
 </script>
+
+
+
 </body>
 </html>

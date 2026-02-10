@@ -469,6 +469,10 @@
                 next_url = `./list.html?category=${category}&state=${state}`
             }
 
+            if(make && !category){
+                next_url = `./list.html?make=${make}&state=${state}`
+            }
+
             if(!make && !category){
                 next_url = `./types.html?state=${state}`
             }

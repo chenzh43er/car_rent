@@ -427,15 +427,17 @@
 
         ul.innerHTML = "";
 
+
+
         states.forEach(({ state }) => {
             const abbr = STATE_ABBR[state];
             if (!abbr) return;
-
+            let next_url = `./types.html?state=${state}`
             const li = document.createElement("li");
             li.className = "general-item";
 
             li.innerHTML = `
-        <a href="/used-cars/${abbr}/" class="general-link">
+        <a href="${next_url}" class="general-link">
           <span class="general-name">${state}</span>
         </a>
       `;
@@ -513,28 +515,27 @@
 
         data.forEach(item => {
 
+            let next_url = `./list.html?state=${stateName}&make=${item.make}`
+
             const image =
                 item.make_img.replace(
                     "https://cdn.carslyst.com/car-make/",
                     ""
                 );
 
-            const url =
-                `/car-makes/${item.make}/${stateAbbr}/`;
-
             const li = document.createElement("li");
 
             li.className = "aside-type-item";
 
             li.innerHTML = `
-        <a href="${url}" class="link-cover"></a>
+        <a href="${next_url}" class="link-cover"></a>
 
         <img class="aside-type-img"
              src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/${image}"
              alt="${item.make}">
 
         <span>
-          <a href="${url}" class="aside-type-name">
+          <a href="${next_url}" class="aside-type-name">
             ${item.make} for Sale
           </a>
 
@@ -552,14 +553,20 @@
     /** 页面初始化 */
     document.addEventListener("DOMContentLoaded", () => {
 
-        const stateName = getStateFromURL()
-            || "District of Columbia"; // fallback
+        const params = new URLSearchParams(window.location.search);
+
+        const make = params.get("make");
+        const state = params.get("state");
+        const category = params.get("category");
+
+        // const stateName = getStateFromURL()
+        //     || "District of Columbia"; // fallback
 
         renderStateList();
 
-        renderCategoriesByState(stateName);
+        renderCategoriesByState(state);
 
-        renderPopularMakes(stateName);
+        renderPopularMakes(state);
 
     });
 

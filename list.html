@@ -1182,12 +1182,31 @@
 
     const params = getParams();
 
+    const param = new URLSearchParams(window.location.search);
+
+    let make = param.get("make");
+    let state = param.get("state");
+    let category = param.get("category");
+
+    if (!make) {
+      make = ""
+    }
+
+    if (!state) {
+      state = ""
+    }
+
+    if (!category) {
+      category = ""
+    }
+
+
     const result =
             await fetchListings({
 
-              state: "Alabama",
-              category: "SUVs",
-              make: "",
+              state: state,
+              category: category,
+              make: make,
               page: params.page,
               limit
 
@@ -1216,6 +1235,8 @@
             result.page,
             result.totalPages
     );
+
+    return result
 
   }
 

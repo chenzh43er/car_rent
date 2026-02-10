@@ -760,7 +760,7 @@ ${priceHTML}
 
       const image =
               car.image_cover === '404.jpg'
-                      ? '/public/static/Images/placeholder.webp'
+                      ? '404.jpg'
                       : car.image_cover;
 
       const div =
@@ -771,7 +771,7 @@ ${priceHTML}
       div.innerHTML = `
 <div class="car-item">
 
-<a href="/used-cars/detail/${car.id}"
+<a href="./detail.html?id=${car.id}"
 class="link-cover"></a>
 
 <div class="car-pic">
@@ -804,7 +804,7 @@ class="link-cover"></a>
 <use xlink:href="#icon-location"></use>
 </svg>
 
-<span>Alabaster</span>
+<span>${car.location}</span>
 
 </div>
 
@@ -814,7 +814,7 @@ class="link-cover"></a>
 <use xlink:href="#icon-date"></use>
 </svg>
 
-<span>Jan 03, 2024</span>
+<span>${car.listing_date}</span>
 
 </div>
 
@@ -889,7 +889,7 @@ ${
 
       const image =
               car.image_cover === '404.jpg'
-                      ? '/public/static/Images/placeholder.webp'
+                      ? '404.jpg'
                       : car.image_cover;
 
       const div =
@@ -902,7 +902,7 @@ ${
 
 <div class="car-item">
 
-<a href="/used-cars/listing-9067/"
+<a href="./detail.html?id=${car.id}"
 class="link-cover"></a>
 
 <div class="car-pic">

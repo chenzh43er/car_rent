@@ -388,6 +388,14 @@
 
         ul.innerHTML = "";
 
+        const params = new URLSearchParams(window.location.search);
+
+        const make = params.get("make");
+        const state = params.get("state");
+        const category = params.get("category");
+
+
+
         categories.forEach(({ category, count }) => {
 
             const meta = CATEGORY_META[category];
@@ -396,8 +404,14 @@
             const li = document.createElement("li");
             li.className = "aside-type-item";
 
+            let next_url = ``
+
+            if(!make && !state){
+                next_url = `./states.html?category=${category}`
+            }
+
             li.innerHTML = `
-            <a href="/used-cars/${meta.slug}/" class="link-cover"></a>
+            <a href="${next_url}" class="link-cover"></a>
 
             <svg class="aside-type-icon">
                 <use xlink:href="#${meta.icon}"></use>
@@ -436,6 +450,12 @@
 
         ul.innerHTML = "";
 
+        const params = new URLSearchParams(window.location.search);
+
+        const make = params.get("make");
+        const state = params.get("state");
+        const category = params.get("category");
+
         states.forEach(({ state }) => {
 
             const abbr = STATE_ABBR[state];
@@ -444,8 +464,17 @@
             const li = document.createElement("li");
             li.className = "general-item";
 
+            let next_url = ``
+            if(!make && category){
+                next_url = `./list.html?category=${category}&state=${state}`
+            }
+
+            if(!make && !category){
+                next_url = `./types.html?state=${state}`
+            }
+
             li.innerHTML = `
-            <a href="/used-cars/${abbr}/"
+            <a href="${next_url}"
                class="general-link">
 
                <span class="general-name">

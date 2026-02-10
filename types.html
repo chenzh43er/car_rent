@@ -338,96 +338,13 @@
 </script>
 
 <script type="module">
-  import { fetchAllStates } from './js/supabaseApi.js';
+    import {
+        fetchAllStates,
+        fetchCategoriesByState,
+        fetchPopularMakesByState
+    } from "./js/supabaseApi.js";
 
-  // 州名 → 缩写
-  const STATE_ABBR = {
-    Alabama: "al",
-    Alaska: "ak",
-    Arizona: "az",
-    Arkansas: "ar",
-    California: "ca",
-    Colorado: "co",
-    Connecticut: "ct",
-    Delaware: "de",
-    "District of Columbia": "dc",
-    Florida: "fl",
-    Georgia: "ga",
-    Hawaii: "hi",
-    Idaho: "id",
-    Illinois: "il",
-    Indiana: "in",
-    Iowa: "ia",
-    Kansas: "ks",
-    Kentucky: "ky",
-    Louisiana: "la",
-    Maine: "me",
-    Maryland: "md",
-    Massachusetts: "ma",
-    Michigan: "mi",
-    Minnesota: "mn",
-    Mississippi: "ms",
-    Missouri: "mo",
-    Montana: "mt",
-    Nebraska: "ne",
-    Nevada: "nv",
-    "New Hampshire": "nh",
-    "New Jersey": "nj",
-    "New Mexico": "nm",
-    "New York": "ny",
-    "North Carolina": "nc",
-    "North Dakota": "nd",
-    Ohio: "oh",
-    Oklahoma: "ok",
-    Oregon: "or",
-    Pennsylvania: "pa",
-    "Rhode Island": "ri",
-    "South Carolina": "sc",
-    "South Dakota": "sd",
-    Tennessee: "tn",
-    Texas: "tx",
-    Utah: "ut",
-    Vermont: "vt",
-    Virginia: "va",
-    Washington: "wa",
-    "West Virginia": "wv",
-    Wisconsin: "wi",
-    Wyoming: "wy"
-  };
-
-  async function renderStateList() {
-    const { data: states, error } = await fetchAllStates();
-    if (error || !states) return;
-
-    const ul = document.querySelector(".general-list.state-list");
-    if (!ul) return;
-
-    ul.innerHTML = ""; // 清空原有 HTML
-
-    states.forEach(({ state }) => {
-      const abbr = STATE_ABBR[state];
-      if (!abbr) return;
-
-      const li = document.createElement("li");
-      li.className = "general-item";
-
-      li.innerHTML = `
-      <a href="/used-cars/${abbr}/" class="general-link">
-        <span class="general-name">${state}</span>
-      </a>
-    `;
-
-      ul.appendChild(li);
-    });
-  }
-
-  document.addEventListener("DOMContentLoaded", renderStateList);
-</script>
-
-<script type="module">
-    import { fetchCategoriesByState } from "./js/supabaseApi.js";
-
-    /** 州名 → 缩写 */
+    /** 州名 → 缩写（全局共用） */
     const STATE_ABBR = {
         Alabama: "al",
         Alaska: "ak",
@@ -482,14 +399,61 @@
         Wyoming: "wy"
     };
 
-    async function renderCategoriesByState() {
-        /** 例：从 URL /used-cars/dc/ 反推州 */
-        const stateName = "District of Columbia"; // 👉 实战中你可从路由解析
+    /** 数字格式化 */
+    function formatNumber(num) {
+        return Number(num).toLocaleString("en-US");
+    }
+
+    /** 从 URL 获取州名 */
+    function getStateFromURL() {
+        // 例: /used-cars/ca/
+        const parts = window.location.pathname.split("/").filter(Boolean);
+        const abbr = parts[1]; // used-cars/{abbr}/
+
+        if (!abbr) return null;
+
+        return Object.keys(STATE_ABBR).find(
+            state => STATE_ABBR[state] === abbr
+        );
+    }
+
+    /** 渲染州列表 */
+    async function renderStateList() {
+        const { data: states, error } = await fetchAllStates();
+        if (error || !states) return;
+
+        const ul = document.querySelector(".general-list.state-list");
+        if (!ul) return;
+
+        ul.innerHTML = "";
+
+        states.forEach(({ state }) => {
+            const abbr = STATE_ABBR[state];
+            if (!abbr) return;
+
+            const li = document.createElement("li");
+            li.className = "general-item";
+
+            li.innerHTML = `
+        <a href="/used-cars/${abbr}/" class="general-link">
+          <span class="general-name">${state}</span>
+        </a>
+      `;
+
+            ul.appendChild(li);
+        });
+    }
+
+    /** 渲染分类 */
+    async function renderCategoriesByState(stateName) {
+        if (!stateName) return;
 
         const stateAbbr = STATE_ABBR[stateName];
         if (!stateAbbr) return;
 
-        const { data, error } = await fetchCategoriesByState(stateName);
+        const { data, error } =
+            await fetchCategoriesByState(stateName);
+
         if (error || !data) return;
 
         const ul = document.querySelector(
@@ -500,147 +464,107 @@
         ul.innerHTML = "";
 
         data.forEach(item => {
+
+            let next_url =
+                `./list.html?state=${stateName}&category=${item.category}`;
+
+            const imgBase =
+                "https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/";
+
             const li = document.createElement("li");
             li.className = "general-item";
 
-            const url = `/used-cars/${stateAbbr}/${item.category}/`;
-            const img = `https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/`;
-
             li.innerHTML = `
-      <a href="${url}" class="link-cover"></a>
-      <div class="brand-pic type">
-        <img class="brand-icon" src="${img+item.category_img}" alt="${item.category_img}">
-      </div>
-      <a href="${url}" class="brand-name">${item.category}</a>
-    `;
+        <a href="${next_url}" class="link-cover"></a>
+
+        <div class="brand-pic type">
+          <img class="brand-icon"
+               src="${imgBase + item.category_img}"
+               alt="${item.category}">
+        </div>
+
+        <a href="${next_url}" class="brand-name">
+          ${item.category}
+        </a>
+      `;
 
             ul.appendChild(li);
         });
     }
 
-    document.addEventListener("DOMContentLoaded", renderCategoriesByState);
-</script>
-
-<script type="module">
-    import { fetchPopularMakesByState } from './js/supabaseApi.js';
-
-    const STATE_ABBR = {
-        Alabama: "al",
-        Alaska: "ak",
-        Arizona: "az",
-        Arkansas: "ar",
-        California: "ca",
-        Colorado: "co",
-        Connecticut: "ct",
-        Delaware: "de",
-        "District of Columbia": "dc",
-        Florida: "fl",
-        Georgia: "ga",
-        Hawaii: "hi",
-        Idaho: "id",
-        Illinois: "il",
-        Indiana: "in",
-        Iowa: "ia",
-        Kansas: "ks",
-        Kentucky: "ky",
-        Louisiana: "la",
-        Maine: "me",
-        Maryland: "md",
-        Massachusetts: "ma",
-        Michigan: "mi",
-        Minnesota: "mn",
-        Mississippi: "ms",
-        Missouri: "mo",
-        Montana: "mt",
-        Nebraska: "ne",
-        Nevada: "nv",
-        "New Hampshire": "nh",
-        "New Jersey": "nj",
-        "New Mexico": "nm",
-        "New York": "ny",
-        "North Carolina": "nc",
-        "North Dakota": "nd",
-        Ohio: "oh",
-        Oklahoma: "ok",
-        Oregon: "or",
-        Pennsylvania: "pa",
-        "Rhode Island": "ri",
-        "South Carolina": "sc",
-        "South Dakota": "sd",
-        Tennessee: "tn",
-        Texas: "tx",
-        Utah: "ut",
-        Vermont: "vt",
-        Virginia: "va",
-        Washington: "wa",
-        "West Virginia": "wv",
-        Wisconsin: "wi",
-        Wyoming: "wy"
-    };
-
-    function formatNumber(num) {
-        return Number(num).toLocaleString("en-US");
-    }
-
+    /** 渲染热门品牌 */
     async function renderPopularMakes(stateName) {
+
+        if (!stateName) return;
+
+        const stateAbbr = STATE_ABBR[stateName];
 
         const { data, error } =
             await fetchPopularMakesByState(stateName);
 
         if (error || !data) return;
 
-        const ul = document.querySelector(
-            ".aside-type-list.number"
-        );
+        const ul =
+            document.querySelector(".aside-type-list.number");
+
+        if (!ul) return;
 
         ul.innerHTML = "";
 
-        const stateAbbr = STATE_ABBR[stateName];
-
         data.forEach(item => {
 
-            const makeName = item.make;
-            const count = item.count;
-            const image = item.make_img.replace("https://cdn.carslyst.com/car-make/",""); // 例如 toyota.png
+            const image =
+                item.make_img.replace(
+                    "https://cdn.carslyst.com/car-make/",
+                    ""
+                );
+
+            const url =
+                `/car-makes/${item.make}/${stateAbbr}/`;
 
             const li = document.createElement("li");
 
             li.className = "aside-type-item";
 
             li.innerHTML = `
-      <a href="/car-makes/${makeName}/${stateAbbr}/"
-         class="link-cover"></a>
+        <a href="${url}" class="link-cover"></a>
 
-      <img class="aside-type-img"
-           src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/${image}"
-           alt="${makeName}">
+        <img class="aside-type-img"
+             src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/${image}"
+             alt="${item.make}">
 
-      <span>
-        <a href="/car-makes/${makeName}/${stateAbbr}/"
-           class="aside-type-name">
-           ${makeName} for Sale
-        </a>
+        <span>
+          <a href="${url}" class="aside-type-name">
+            ${item.make} for Sale
+          </a>
 
-        <span class="aside-type-count general-num">
-          ${formatNumber(item.count)}
+          <span class="aside-type-count general-num">
+            ${formatNumber(item.count)}
+          </span>
         </span>
-      </span>
-    `;
+      `;
 
             ul.appendChild(li);
 
         });
-
     }
 
+    /** 页面初始化 */
     document.addEventListener("DOMContentLoaded", () => {
 
-        renderPopularMakes("Alabama");
+        const stateName = getStateFromURL()
+            || "District of Columbia"; // fallback
+
+        renderStateList();
+
+        renderCategoriesByState(stateName);
+
+        renderPopularMakes(stateName);
 
     });
 
-
 </script>
+
 
 </body>
 </html>

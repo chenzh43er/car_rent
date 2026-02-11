@@ -492,6 +492,28 @@
         });
     }
 
+    function capitalizeFirstLetter(str) {
+        if (!str) return str;
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    document.querySelectorAll('a.link-cover, a.brand-name').forEach(el => {
+        // 从 brand-name 获取 make，或者从 href 提取
+        let make = el.textContent.trim();
+
+        // 如果 link-cover 没有文本，从 href 提取
+        if (!make) {
+            const match = el.getAttribute('href').match(/\/car-makes\/([^\/]+)\//);
+            if (match) {
+                make = match[1];
+            }
+        }
+
+        if (make) {
+            el.href = `./states.html?make=${capitalizeFirstLetter(encodeURIComponent(make))}`;
+        }
+    });
+
     /* =========================
        INIT
     ========================= */

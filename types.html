@@ -15,8 +15,7 @@
 <main style="height: auto !important;">
   <div class="main" style="height: auto !important;">
     <div class="container detail">
-      <h1>Used Cars in Alabama</h1>
-
+      <h1 id="titleForTypes">Used Cars in Alabama</h1>
     </div>
     <div class="bottom" style="height: auto !important;">
       <div class="container" style="height: auto !important;">
@@ -561,6 +560,9 @@
 
         // const stateName = getStateFromURL()
         //     || "District of Columbia"; // fallback
+
+
+        document.getElementById('titleForTypes').innerText = `Used Cars in ${state}`
 
         renderStateList();
 

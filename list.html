@@ -17,7 +17,7 @@
   <div class="filter-cover"></div>
   <div class="main" style="height: auto !important;">
     <div class="container detail">
-      <h1>Used SUVs in Alabama</h1>
+      <h1 id="titleForList">Used SUVs in Alabama</h1>
     </div>
     <div class="category-content" style="height: auto !important;">
       <div class="container" style="height: auto !important;">
@@ -1200,6 +1200,20 @@
       category = ""
     }
 
+    let textTitle = "Used";
+
+    if (category && make) {
+      textTitle += ` ${make},${category} in ${state}`;
+    } else if (category) {
+      textTitle += ` ${category} in ${state}`;
+    } else if (make) {
+      textTitle += ` ${make} in ${state}`;
+    } else {
+      textTitle += ` Cars in ${state}`;
+    }
+    //console.log(textTitle);
+    document.getElementById('titleForList').innerText = textTitle
+
 
     const result =
             await fetchListings({
@@ -1322,8 +1336,10 @@
 
       li.className = "aside-type-item";
 
+      let next_urlList = `./list.html?make=${makeName}&state=${stateName}`
+
       li.innerHTML = `
-      <a href="/car-makes/${makeName}/${stateAbbr}/"
+      <a href="${next_urlList}"
          class="link-cover"></a>
 
       <img class="aside-type-img"
@@ -1331,7 +1347,7 @@
            alt="${makeName}">
 
       <span>
-        <a href="/car-makes/${makeName}/${stateAbbr}/"
+        <a href="${next_urlList}"
            class="aside-type-name">
            ${makeName} for Sale
         </a>

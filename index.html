@@ -27,67 +27,7 @@
     <div class="home-section">
       <h2>Used Cars <span>by Make</span></h2>
       <div class="home-content">
-        <ul class="car-make-list">
-          <li class="car-make-item">
-            <a href="/car-makes/toyota/" class="link-cover"></a>
-            <div class="car-make-img"><img src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/toyota.png" alt="Toyota"></div>
-            <a href="/car-makes/toyota/" class="car-make-name">Toyota</a>
-
-          </li>
-          <li class="car-make-item">
-            <a href="/car-makes/honda/" class="link-cover"></a>
-            <div class="car-make-img"><img src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/honda.png" alt="Honda"></div>
-            <a href="/car-makes/honda/" class="car-make-name">Honda</a>
-
-          </li>
-          <li class="car-make-item">
-            <a href="/car-makes/nissan/" class="link-cover"></a>
-            <div class="car-make-img"><img src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/nissan.png" alt="Nissan"></div>
-            <a href="/car-makes/nissan/" class="car-make-name">Nissan</a>
-
-          </li>
-          <li class="car-make-item">
-            <a href="/car-makes/hyundai/" class="link-cover"></a>
-            <div class="car-make-img"><img src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/hyundai.png" alt="Hyundai"></div>
-            <a href="/car-makes/hyundai/" class="car-make-name">Hyundai</a>
-
-          </li>
-          <li class="car-make-item">
-            <a href="/car-makes/ford/" class="link-cover"></a>
-            <div class="car-make-img"><img src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/ford.png" alt="Ford"></div>
-            <a href="/car-makes/ford/" class="car-make-name">Ford</a>
-
-          </li>
-          <li class="car-make-item">
-            <a href="/car-makes/chevrolet/" class="link-cover"></a>
-            <div class="car-make-img"><img src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/chevrolet.png" alt="Chevrolet"></div>
-            <a href="/car-makes/chevrolet/" class="car-make-name">Chevrolet</a>
-
-          </li>
-          <li class="car-make-item">
-            <a href="/car-makes/jeep/" class="link-cover"></a>
-            <div class="car-make-img"><img src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/jeep.png" alt="Jeep"></div>
-            <a href="/car-makes/jeep/" class="car-make-name">Jeep</a>
-
-          </li>
-          <li class="car-make-item">
-            <a href="/car-makes/bmw/" class="link-cover"></a>
-            <div class="car-make-img"><img src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/bmw.png" alt="BMW"></div>
-            <a href="/car-makes/bmw/" class="car-make-name">BMW</a>
-
-          </li>
-          <li class="car-make-item">
-            <a href="/car-makes/mercedes-benz/" class="link-cover"></a>
-            <div class="car-make-img"><img src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/mercedes-benz.png" alt="Mercedes-Benz"></div>
-            <a href="/car-makes/mercedes-benz/" class="car-make-name">Mercedes-Benz</a>
-
-          </li>
-          <li class="car-make-item">
-            <a href="/car-makes/kia/" class="link-cover"></a>
-            <div class="car-make-img"><img src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/kia.png" alt="Kia"></div>
-            <a href="/car-makes/kia/" class="car-make-name">Kia</a>
-
-          </li>
+        <ul class="car-make-list" id="car-makes-list">
         </ul>
       </div>
     </div>
@@ -371,6 +311,101 @@
   document.getElementById("viewAllListings").href = "./states.html"
 
 </script>
+
+<script>
+  const carMakes = [
+    { name: "Toyota", image: "images/toyota.png" },
+    { name: "Honda", image: "images/honda.png" },
+    { name: "Ford", image: "images/ford.png" },
+    { name: "Chevrolet", image: "images/chevrolet.png" },
+    { name: "BMW", image: "images/bmw.png" },
+    { name: "Mercedes-Benz", image: "images/mercedes-benz.png" },
+    { name: "Audi", image: "images/audi.png" },
+    { name: "Nissan", image: "images/nissan.png" },
+    { name: "Hyundai", image: "images/hyundai.png" },
+    { name: "Kia", image: "images/kia.png" }
+  ];
+
+  const list = document.getElementById("car-makes-list");
+
+  carMakes.forEach(make => {
+
+    const url = `./states.html?make=${encodeURIComponent(make.name)}`;
+
+    const li = document.createElement("li");
+    li.className = "car-make-item";
+
+    li.innerHTML = `
+    <a href="${url}" class="link-cover"></a>
+
+    <div class="car-make-img">
+      <img src="${"https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/"+make.image}" alt="${make.name}">
+    </div>
+
+    <a href="${url}" class="car-make-name">
+      ${make.name}
+    </a>
+  `;
+
+    list.appendChild(li);
+
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+
+    // 选择所有 car make 和 car type 的链接
+    const links = document.querySelectorAll(
+            ".car-make-item a, .car-type-item a"
+    );
+
+    links.forEach(link => {
+
+      const href = link.getAttribute("href");
+
+      if (!href) return;
+
+      let makeName = null;
+
+      // 匹配 /car-makes/toyota/
+      const makeMatch = href.match(/\/car-makes\/([^\/]+)\//);
+
+      // 匹配 /used-cars/suvs/
+      const typeMatch = href.match(/\/used-cars\/([^\/]+)\//);
+
+      if (makeMatch) {
+        makeName = makeMatch[1];
+      }
+      else if (typeMatch) {
+        makeName = typeMatch[1];
+      }
+
+      if (makeName) {
+
+        // 转换为首字母大写格式
+        makeName = makeName
+                .split("-")
+                .map(word =>
+                        word.charAt(0).toUpperCase() + word.slice(1)
+                )
+                .join("-");
+
+
+        if(makeName === 'Suvs'){makeName="SUVs"}
+
+        const newUrl = `./states.html?category=${encodeURIComponent(makeName)}`;
+
+        link.setAttribute("href", newUrl);
+
+      }
+
+    });
+
+  });
+</script>
+
+
 
 </body>
 </html>

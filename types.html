@@ -466,8 +466,11 @@
 
         data.forEach(item => {
 
+            let category_Str = item.category
+            if(item.category === 'RVs & Campers'){category_Str = "RVs%20%26%20Campers"}
+
             let next_url =
-                `./list.html?state=${stateName}&category=${item.category}`;
+                `./list.html?state=${stateName}&category=${category_Str}`;
 
             const imgBase =
                 "https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/";

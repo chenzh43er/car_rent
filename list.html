@@ -9,19 +9,74 @@
   <link rel="stylesheet" href="./css/style.css">
   <link rel="icon" href="./img/icon.png" type="image/png">
   <script src="./js/utlParam.js"></script>
+  <script src="./js/jquery.min.js"></script>
 <body style="display: none" id = "mainBody">
 
 <header id="header">
 </header>
 
 <main style="height: auto !important;">
-  <div class="filter-cover"></div>
+  <div class="filter-cover">
+  </div>
   <div class="main" style="height: auto !important;">
     <div class="container detail">
       <h1 id="titleForList">Used SUVs in Alabama</h1>
     </div>
     <div class="category-content" style="height: auto !important;">
       <div class="container" style="height: auto !important;">
+
+        <div class="filter-banner">
+          <div class="filter-scroll-container">
+            <div class="filter-banner-btn state" id = "filter-banner-btn-state">
+              <span class="banner-state-value" id = "banner-state-value">Alabama</span>
+              <svg class="sort-go">
+                <use xlink:href="#icon-go"></use>
+              </svg>
+              <ul class="filter-banner-list" id="filter-banner-btn-state-ul">
+              </ul>
+            </div>
+            <div class="filter-banner-btn city" id = "filter-banner-btn-city">
+              <span class="banner-city-value"  id = "banner-city-value">City</span>
+              <svg class="sort-go">
+                <use xlink:href="#icon-go"></use>
+              </svg>
+              <ul class="filter-banner-list" id="filter-banner-btn-city-ul">
+                <li class="filter-banner-item"><a href="/used-cars/suvs/al/alabaster/">Alabaster</a></li>
+              </ul>
+            </div>
+
+            <div class="filter-banner-btn make" style="display: none" id = "filter-banner-btn-make">
+              <span class="banner-category-value" id="banner-make-value">Toyota</span>
+              <svg class="sort-go">
+                <use xlink:href="#icon-go"></use>
+              </svg>
+              <ul class="filter-banner-list" id="filter-banner-btn-make-ul">
+              </ul>
+            </div >
+
+            <div class="filter-banner-btn type" style="display: none" id = "filter-banner-btn-type">
+              <span class="banner-category-value" id = "banner-category-value">SUVs</span>
+              <svg class="sort-go">
+                <use xlink:href="#icon-go"></use>
+              </svg>
+              <ul class="filter-banner-list" id = "banner-category-value-ul">
+                <li class="filter-banner-item active"><a href="/used-cars/suvs/al/">SUVs</a></li>
+              </ul>
+            </div>
+
+            <div class="filter-banner-btn price">
+              <span class="banner-price-value">Price Range</span>
+              <svg class="sort-go">
+                <use xlink:href="#icon-go"></use>
+              </svg>
+              <div class="price-range-wrap">
+                <input class="min-price" type="text" placeholder="Min Price" >
+                <input class="max-price" type="text" placeholder="Max Price" >
+                <div class="filter-confirm-btn">Apply</div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="sort-wrap">
           <div class="sort-section">
             <div class="filter-slide-wrap">
@@ -1177,47 +1232,64 @@
 
     const param = new URLSearchParams(window.location.search);
 
-    let make = param.get("make");
-    let state = param.get("state");
-    let category = param.get("category");
+// ===== string params =====
+    let make = param.get("make") || "";
+    let state = param.get("state") || "";
+    let city = param.get("city") || "";
+    let category = param.get("category") || "";
 
-    if (!make) {
-      make = ""
-    }
+// ===== number params =====
+    let minPrice = param.get("minprice");
+    let maxPrice = param.get("maxprice");
 
-    if (!state) {
-      state = ""
-    }
+// ⭐ number 转换（非常重要）
+    minPrice = minPrice !== null ? Number(minPrice) : null;
+    maxPrice = maxPrice !== null ? Number(maxPrice) : null;
 
-    if (!category) {
-      category = ""
-    }
-
+// ===== title 生成 =====
     let textTitle = "Used";
 
     if (category && make) {
-      textTitle += ` ${make},${category} in ${state}`;
+      textTitle += ` ${make}, ${category}`;
     } else if (category) {
-      textTitle += ` ${category} in ${state}`;
+      textTitle += ` ${category}`;
     } else if (make) {
-      textTitle += ` ${make} in ${state}`;
+      textTitle += ` ${make}`;
     } else {
-      textTitle += ` Cars in ${state}`;
+      textTitle += ` Cars`;
     }
-    //console.log(textTitle);
-    document.getElementById('titleForList').innerText = textTitle
 
+// location 拼接
+    if (city && state) {
+      textTitle += ` in ${city}, ${state}`;
+    } else if (state) {
+      textTitle += ` in ${state}`;
+    }
 
-    const result =
-            await fetchListings({
+// price 拼接（可选 SEO 强化）
+    if (minPrice !== null || maxPrice !== null) {
+      if (minPrice !== null && maxPrice !== null) {
+        textTitle += ` ($${minPrice} - $${maxPrice})`;
+      } else if (minPrice !== null) {
+        textTitle += ` (>$${minPrice})`;
+      } else {
+        textTitle += ` (<$${maxPrice})`;
+      }
+    }
 
-              state: state,
-              category: category,
-              make: make,
-              page: params.page,
-              limit
+    document.getElementById("titleForList").innerText = textTitle;
 
-            });
+// ===== fetch =====
+    const result = await fetchListings({
+      state,
+      city,
+      category,
+      make,
+      minPrice,
+      maxPrice,
+      page: params.page,
+      limit
+    });
 
     const totalElement =
             document.querySelector('.sort-title .general-num');
@@ -1361,7 +1433,9 @@
 
     await loadPage();
 
-    await renderPopularMakes("Alabama");
+    const param = new URLSearchParams(window.location.search);
+    let state = param.get("state");
+    await renderPopularMakes(state);
 
     document.getElementById("mainBody").style.display = "block";
 
@@ -1370,7 +1444,753 @@
 
 </script>
 
+<script type="module">
+  import { fetchAllStates, fetchPopularMakesByState, fetchCategoriesByState,fetchCitiesByState,fetchMakesByState } from './js/supabaseApi.js';
 
+  const stateListEl = document.getElementById("filter-banner-btn-state-ul")
+
+  async function renderStates() {
+
+    let stateUrl = `./`
+
+    const { data: states, error } = await fetchAllStates();
+
+    const param = new URLSearchParams(window.location.search);
+    let state = param.get("state");
+
+    document.getElementById("banner-state-value").innerText = state
+
+    stateListEl.innerHTML = states.map((state, index) => {
+
+      const url = new URL(window.location.href);
+      url.searchParams.set('state', state.state); // 改 state
+
+      return `
+    <li class="filter-banner-item">
+      <a href="${url.pathname + url.search}">${state.state}</a>
+    </li>
+  `;
+    }).join('');
+  }
+
+  async function renderCities() {
+
+    const param = new URLSearchParams(window.location.search);
+    let make = param.get("make");
+    let state = param.get("state");
+    let category = param.get("category");
+    let city = param.get("city");
+    const label = document.getElementById('banner-city-value');
+
+    if (!make) {
+      make = ""
+    }
+
+    if (!state) {
+      state = ""
+    }
+
+    if (!category) {
+      category = ""
+    }
+
+    if (!city) {
+      city = ""
+      label.innerText = "City"
+    }else{
+      label.innerText = city
+    }
+
+    const ul = document.getElementById('filter-banner-btn-city-ul');
+
+
+    // loading UI
+    ul.innerHTML = '<li class="filter-banner-item">Loading...</li>';
+
+    const { data: cities, error } = await fetchCitiesByState(state);
+
+    if (!cities || cities.length === 0) {
+      ul.innerHTML = '<li class="filter-banner-item">No cities</li>';
+      return;
+    }
+
+    // 清空
+    ul.innerHTML = '';
+
+    cities.forEach(({ city }) => {
+
+      const url = new URL(window.location.href);
+
+      url.searchParams.set('city', city);
+
+      const slug = city.toLowerCase().replace(/\s+/g, '-');
+
+      const li = document.createElement('li');
+      li.className = 'filter-banner-item';
+
+      const a = document.createElement('a');
+      a.href = url.toString();
+      a.textContent = city;
+
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+  }
+
+  async function renderCategories() {
+    const param = new URLSearchParams(window.location.search);
+    let state = param.get("state");
+
+    let category = param.get("category");
+
+    const ul = document.getElementById('banner-category-value-ul');
+    const label = document.getElementById('banner-category-value');
+    label.innerText = category
+
+    ul.innerHTML = '<li class="filter-banner-item">Loading...</li>';
+
+    const { data: categories, error } = await fetchCategoriesByState(state);
+
+    if (!categories.length) {
+      ul.innerHTML = '<li class="filter-banner-item">No categories</li>';
+      return;
+    }
+
+    ul.innerHTML = '';
+
+    categories.forEach(({ category }) => {
+
+      const li = document.createElement('li');
+      li.className = 'filter-banner-item';
+
+      const a = document.createElement('a');
+      a.textContent = category;
+
+      // ⭐ 无刷新
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const url = new URL(window.location.href);
+        url.searchParams.set('category', category);
+
+        window.location.href = url;   // ⭐ 刷新
+      });
+
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+  }
+
+  async function renderMakes() {
+
+    // ⭐ 获取 state（query + path fallback）
+    const params = new URLSearchParams(window.location.search);
+    let state = params.get('state');
+    let make = params.get("make");
+
+    if (!state) {
+      const parts = window.location.pathname.replace(/^\/|\/$/g, '').split('/');
+      state = parts[2];
+    }
+
+    document.getElementById("banner-make-value").innerText = make
+
+    const ul = document.getElementById('filter-banner-btn-make-ul');
+    const label = document.getElementById('banner-make-value');
+
+    ul.innerHTML = '<li class="filter-banner-item">Loading...</li>';
+
+    const { data: makes, error } = await fetchMakesByState(state);
+
+    if (!makes || !makes.length) {
+      ul.innerHTML = '<li class="filter-banner-item">No makes</li>';
+      return;
+    }
+
+    const currentMake = new URL(window.location.href).searchParams.get('make');
+
+    ul.innerHTML = '';
+
+    makes.forEach(({ make, total }) => {
+
+      const li = document.createElement('li');
+      li.className = 'filter-banner-item';
+
+      const a = document.createElement('a');
+      a.href = '#';
+      a.textContent = total ? `${make} (${total})` : make;
+
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const url = new URL(window.location.href);
+        url.searchParams.set('make', make);
+
+        // ⭐ SEO filter → 刷新
+        window.location.href = url;
+      });
+
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+  }
+
+  renderStates();
+  renderCities();
+
+  const param = new URLSearchParams(window.location.search);
+  let make = param.get("make");
+  let category = param.get("category");
+
+  if (!make) {
+    make = ""
+    document.getElementById("filter-banner-btn-type").style.display = "flex"
+    renderCategories();
+  }
+
+  if (!category) {
+    category = ""
+    document.getElementById("filter-banner-btn-make").style.display = "flex"
+    renderMakes();
+  }
+
+
+
+
+
+</script>
+
+<script>
+
+  if(sessionStorage.getItem('subTipNumber')) {
+    var subTipNumber = sessionStorage.getItem('subTipNumber');
+    subTipNumber ++;
+    sessionStorage.setItem('subTipNumber', subTipNumber);
+  }else {
+    sessionStorage.setItem('subTipNumber', 1);
+  }
+
+  $("body").click(function(){
+    $('.sort-btn, .filter-banner-btn').removeClass('expand');
+  })
+
+  $(".sort-btn, .filter-banner-btn").click(function() {
+    event.stopPropagation()
+
+    if ($(this).hasClass('expand')) {
+      $(this).removeClass('expand');
+    } else {
+      $('.sort-btn, .filter-banner-btn').removeClass('expand');
+      $(this).addClass('expand');
+    }
+  })
+  $(".price-range-wrap input, .price-range-wrap .filter-confirm-btn").click(function(event) {
+    event.stopPropagation();
+  });
+
+  var isClickBackTopDouble = sessionStorage.getItem('isClickBackTopDouble') || false;
+
+  $("#popup-back").click(function(){
+    if(sessionStorage.getItem('clickBackTopNumber')) {
+      var clickBackTopNumber = sessionStorage.getItem('clickBackTopNumber');
+      clickBackTopNumber ++;
+      sessionStorage.setItem('clickBackTopNumber', clickBackTopNumber);
+      if(clickBackTopNumber >= 2) {
+        sessionStorage.setItem('isClickBackTopDouble', true);
+      }
+    }else {
+      sessionStorage.setItem('clickBackTopNumber', 1);
+    }
+  });
+
+  window.onload=function() {
+    setTimeout(toSubscribed,3000);
+    $("#popup-back").click(function(){
+      $(this).hide()
+    });
+  }
+
+
+
+  var oldUrl = window.location.href
+  var url = ''
+  var originUrl = ''
+  var params = ''
+  var paramsMinpr = '';
+  var paramsMaxpr = '';
+  var paramsOrder = '';
+  var paramsPage = '';
+  // var paramsSearch = '';
+  if(oldUrl.includes('?')) {
+    originUrl = oldUrl.split('?')[0]
+    params = oldUrl.split('?')[1]
+
+    paramsArr = params.split('&')
+    paramsArr.forEach(item => {
+      if(item.includes('minprice')) {
+        paramsMinpr = item.split('=')[1]
+      }
+      if(item.includes('maxprice')) {
+        paramsMaxpr = item.split('=')[1]
+      }
+      if(item.includes('order')) {
+        paramsOrder = item.split('=')[1]
+      }
+      if(item.includes('page')) {
+        paramsPage = item.split('=')[1]
+      }
+      // if(item.includes('q=')) {
+      //     paramsSearch = item.split('=')[1]
+      // }
+    });
+
+    if($(".brpp_pageGo").children().eq(-2).text().replace(',','') == paramsPage) {
+      $(".page-back-active").show();
+    }
+  }
+
+  var minPrice = ''
+  var maxPrice = ''
+  minPrice = paramsMinpr.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  $(".min-price").each(function() {
+    $(this).val(minPrice ? `$ ${minPrice}` : '');
+  })
+  maxPrice = paramsMaxpr.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  $(".max-price").each(function() {
+    $(this).val(maxPrice ? `$ ${maxPrice}` : '');
+  })
+
+  if(minPrice == '' && maxPrice == '') {
+    $(".price-subvalue").text('All')
+  }else if (minPrice !== '' && maxPrice == '') {
+    $(".price-subvalue").text(`Min $${minPrice}`);
+    $(".banner-price-value").text(`Min $${minPrice}`);
+  }else if(minPrice == '' && maxPrice !== '') {
+    $(".price-subvalue").text(`Max $${maxPrice}`);
+    $(".banner-price-value").text(`Max $${maxPrice}`);
+  }else {
+    $(".price-subvalue").text(`$${minPrice} - $${maxPrice}`);
+    $(".banner-price-value").text(`$${minPrice} - $${maxPrice}`);
+  }
+
+  if(paramsOrder) {
+    if(paramsOrder == 'priceasc') {
+      $(".sort-value").text('Price Low')
+    }else if(paramsOrder == 'pricedesc') {
+      $(".sort-value").text('Price High')
+    }
+    $(".sort-item").each(function() {
+      if($(this).attr('data-order') == paramsOrder) {
+        $(this).addClass('active')
+      }
+    })
+  }else {
+    $(".sort-value").text('Date')
+    $(".sort-item").each(function() {
+      if($(this).attr('data-order') == 'date') {
+        $(this).addClass('active')
+      }
+    })
+  }
+
+  var newUrl = ''
+  $(".sort-item").each(function() {
+    $(this).click(function() {
+      event.stopPropagation()
+      let sortValue = $(this).text()
+      let sortSlug = $(this).attr('data-order')
+      $('.sort-btn').removeClass('expand')
+      $(".sort-value").text(sortValue)
+      if(sortSlug == 'date') {
+        if(oldUrl.includes('?')) {
+          if(paramsMinpr == '' && paramsMaxpr == '') {
+            newUrl = originUrl
+          }else if(paramsMinpr !== '' && paramsMaxpr == '') {
+            newUrl = originUrl + '?minprice=' + paramsMinpr
+          }else if(paramsMaxpr !== '' && paramsMinpr == '') {
+            newUrl = originUrl + '?maxprice=' + paramsMaxpr
+          }else {
+            newUrl = originUrl + '?minprice=' + paramsMinpr + '&maxprice=' + paramsMaxpr
+          }
+        }else {
+          var newUrl = originUrl
+        }
+      }else {
+        if(oldUrl.includes('?')) {
+          if(paramsMinpr == '' && paramsMaxpr == '') {
+            newUrl = originUrl + '?order=' + sortSlug
+          }else if(paramsMinpr !== '' && paramsMaxpr == '') {
+            newUrl = originUrl + '?minprice=' + paramsMinpr
+            newUrl = newUrl + '&order=' + sortSlug
+          }else if(paramsMaxpr !== '' && paramsMinpr == '') {
+            newUrl = originUrl + '?maxprice=' + paramsMaxpr
+            newUrl = newUrl + '&order=' + sortSlug
+          }else {
+            newUrl = originUrl + '?minprice=' + paramsMinpr + '&maxprice=' + paramsMaxpr
+            newUrl = newUrl + '&order=' + sortSlug
+          }
+        }else {
+          var newUrl = originUrl + '?order=' + sortSlug
+        }
+      }
+      window.location.href = newUrl;
+    })
+  })
+
+  $(".condition-title").each(function() {
+    $(this).click(function() {
+      $(this).parent().toggleClass('expand')
+    })
+  })
+
+  $(".condition-item").each(function() {
+    $(this).click(function() {
+      $(this).addClass('active').siblings().removeClass('active')
+    })
+  })
+
+  $('#search-text, #min-price, #max-price').on('keypress', function(event) {
+    if (event.which === 13) {
+      handleFilter();
+    }
+  });
+
+  $(".condition-filter, .filter-confirm-btn").click(function() {
+    event.stopPropagation();
+    handleFilter()
+  })
+
+  function handleFilter() {
+
+    let min = document.querySelector(".min-price").value;
+    let max = document.querySelector(".max-price").value;
+
+    // ⭐⭐ 关键清洗：去掉 $, 逗号, 空格
+    function clean(v) {
+      return v.replace(/[^\d]/g, "");
+    }
+
+    min = clean(min);
+    max = clean(max);
+
+    const url = new URL(window.location.href);
+
+    if (min) url.searchParams.set("minprice", min);
+    else url.searchParams.delete("minprice");
+
+    if (max) url.searchParams.set("maxprice", max);
+    else url.searchParams.delete("maxprice");
+
+    window.location.href = url.toString();
+  }
+
+  function formatMinAccountNumber(input) {
+    let value = input.value.replace(/[^\d]/g, '');
+    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    input.value = value ? `$ ${value}` : '';
+    minPrice = value ? value : ''
+  }
+  function formatMaxAccountNumber(input) {
+    let value = input.value.replace(/[^\d]/g, '');
+    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    input.value = value ? `$ ${value}` : '';
+    maxPrice = value ? value : ''
+  }
+
+
+  $(".filter-clear").click(function() {
+    if(oldUrl.includes('search/?q=')) {
+      window.location.href = url
+    }else {
+      window.location.href = originUrl
+    }
+  })
+
+
+  $(".popup-text").html("Click <strong>Allow</strong>  to receive updates on used car listings and find your ideal budget car!")
+  $("#popup-back").click(function () {
+    document.getElementById("popup-back").style.display = "none"
+  })
+
+  $(".icon-nav").click(function() {
+    $(".nav-cover").toggleClass('expand');
+    $(".header-nav").toggleClass('expand');
+    checkNav()
+  })
+  $(".nav-cover").click(function() {
+    $(".nav-cover").toggleClass('expand');
+    $(".header-nav").toggleClass('expand');
+    checkNav()
+  })
+
+  $(".nav-item.expand .nav-con").on('click', function(e) {
+    if ($(e.target).closest('.icon-go').length) {
+      e.preventDefault();
+      $(this).parent().find(".nav-sub-list").toggleClass("expand");
+    }
+  });
+
+  var backTop = 0
+  function checkFilter() {
+    if ($('.filter-aside-wrap').css('display') !== 'none') {
+      var top = $(window).scrollTop()
+      backTop = top
+      $('body').css({
+        'position': 'fixed',
+        'width': '100%',
+        'top': -top
+      })
+    } else {
+      $('body').css({
+        'position': 'absolute',
+        'width': '100%',
+        'top': 0
+      })
+      window.scrollTo(0, backTop);
+    }
+  }
+
+  window.LazyLoadManager = {
+    imageObserver: null,
+    init() {
+      if ('IntersectionObserver' in window) {
+        this.initWithIntersectionObserver();
+      } else {
+        this.initWithFallback();
+      }
+    },
+    initWithIntersectionObserver() {
+      this.imageObserver = new IntersectionObserver(
+              (entries, observer) => {
+                entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                    this.loadImage(entry.target);
+                    observer.unobserve(entry.target);
+                  }
+                });
+              },
+              {
+                rootMargin: '50px 0px',
+                threshold: 0.01
+              }
+      );
+
+      this.observeImages();
+    },
+    initWithFallback() {
+      const throttledLazyload = this.throttle(this.checkImages.bind(this), 200);
+      document.addEventListener('DOMContentLoaded', () => this.checkImages());
+      window.addEventListener('scroll', throttledLazyload);
+    },
+    loadImage(img) {
+      const src = img.dataset.src;
+      if (!src) {
+        img.removeAttribute('lazyload');
+        return Promise.resolve(img);
+      }
+
+      return new Promise((resolve, reject) => {
+        const newImg = new Image();
+
+        newImg.onload = () => {
+          img.src = src;
+          img.removeAttribute('data-src');
+          img.removeAttribute('lazyload');
+          resolve(img);
+        };
+
+        newImg.onerror = () => {
+          img.removeAttribute('data-src');
+          img.removeAttribute('lazyload');
+          resolve(img);
+        };
+
+        newImg.src = src;
+      })
+    },
+    observeImages() {
+      const images = document.querySelectorAll('img[data-src][lazyload]');
+      if (this.imageObserver) {
+        images.forEach(img => this.imageObserver.observe(img));
+      }
+    },
+    checkImages() {
+      const viewHeight = window.innerHeight || document.documentElement.clientHeight;
+      const images = document.querySelectorAll('img[data-src][lazyload]');
+
+      images.forEach(img => {
+        const rect = img.getBoundingClientRect();
+        if (rect.bottom >= 0 && rect.top < viewHeight) {
+          this.loadImage(img);
+        }
+      });
+    },
+    throttle(fn, delay) {
+      let timer = null;
+      let lastTime = 0;
+
+      return (...args) => {
+        const now = Date.now();
+
+        if (now - lastTime >= delay) {
+          fn.apply(this, args);
+          lastTime = now;
+        } else if (!timer) {
+          timer = setTimeout(() => {
+            fn.apply(this, args);
+            lastTime = now;
+            timer = null;
+          }, delay);
+        }
+      };
+    }
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    window.LazyLoadManager.init();
+  });
+
+
+  const formatNumber = (number) => {
+    return new Intl.NumberFormat('en-US').format(number);
+  };
+
+  function removeEmptyAds() {
+    const adsList = document.querySelectorAll('.ad-layout, .ads-grid, .car-item-ad, .ads-article, .ads-normal');
+
+    adsList.forEach(adContainer => {
+      const isEmpty = !adContainer.innerHTML.trim();
+      const insElement = adContainer.querySelector('ins');
+      const isUnfilled = insElement && insElement.getAttribute('data-ad-status') === 'unfilled';
+
+      if (isEmpty || isUnfilled) {
+        adContainer.remove();
+      }
+    });
+  }
+  document.addEventListener('DOMContentLoaded', removeEmptyAds);
+  const observer = new MutationObserver(removeEmptyAds);
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+
+
+  $(".general-num").each(function () {
+    const num = $(this).text();
+    $(this).text(formatNumber(num));
+  })
+  $(".car-total").each(function () {
+    const num = $(this).text();
+    $(this).text(formatNumber(num));
+  })
+
+  $(".buy-total").each(function () {
+    const num = $(this).text();
+    $(this).text(formatNumber(num));
+  })
+
+  $(".footer-top").click(function() {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  })
+
+  function checkNav() {
+    var top = $(window).scrollTop()
+    if ($('.header-nav').css('display') !== 'none') {
+      $('body').css({
+        'position': 'fixed',
+        'width': '100%',
+        'top': 0
+      })
+    } else {
+      $('body').css({
+        'position': 'absolute',
+        'width': '100%',
+      })
+    }
+  }
+
+  function throttle(func, wait) {
+    let lastTime = 0;
+    return function() {
+      const now = Date.now();
+      if (now - lastTime >= wait) {
+        func.apply(this, arguments);
+        lastTime = now;
+      }
+    }
+  }
+
+  function handleImageSources() {
+    const lazyImages = document.querySelectorAll('.car-pic img[src*="load"]');
+    const viewportWidth = window.innerWidth;
+
+    lazyImages.forEach(img => {
+      if (viewportWidth > 680) {
+        img.src = img.src.replace('load-l.webp', 'load-s.webp');
+      } else {
+        img.src = img.src.replace('load-s.webp', 'load-l.webp');
+      }
+    });
+  }
+  document.addEventListener('DOMContentLoaded', handleImageSources);
+  window.addEventListener('resize', throttle(handleImageSources, 200));
+
+
+  var address = '103.177.80.169' ? '103.177.80.169' : '';
+  var push_sites = 'car' ? 'car' : '';
+</script>
+<script src="/public/static/Js/main.js?v-11"></script>
+
+<script>
+
+  var categoryInfoName = 'Toyota'
+  var stateInfoName = 'Connecticut'
+
+
+
+  $('.state-info-name').each(function () {
+    if ($(this).find('.condition-name').text() == stateInfoName) {
+      $(this).addClass('active')
+    }
+  })
+  $('.filter-banner-btn.state .filter-banner-item').each(function () {
+    if ($(this).text() == stateInfoName) {
+      $(this).addClass('active')
+    }
+  })
+
+  $('.category-info-name').each(function () {
+    if ($(this).find('.condition-name').text() == categoryInfoName) {
+      $(this).addClass('active')
+    }
+  })
+  $('.filter-banner-btn.type .filter-banner-item').each(function () {
+    if ($(this).text() == categoryInfoName) {
+      $(this).addClass('active')
+    }
+  })
+
+  $(".filter-btn").click(function () {
+    $(".filter-aside-wrap").toggleClass('expand')
+    $(".filter-cover").toggleClass('expand')
+    checkFilter()
+  })
+  $(".filter-close").click(function () {
+    $(".filter-aside-wrap").toggleClass('expand')
+    $(".filter-cover").toggleClass('expand')
+    checkFilter()
+  })
+  $(".filter-cover").click(function () {
+    $(".filter-aside-wrap").toggleClass('expand')
+    $(".filter-cover").toggleClass('expand')
+    checkFilter()
+  })
+
+</script>
 
 </body>
 </html>

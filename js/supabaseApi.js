@@ -148,8 +148,11 @@ export async function fetchPopularMakesByState(stateName) {
  */
 export async function fetchListings({
                                         state = null,
+                                        city = null,
                                         category = null,
                                         make = null,
+                                        minPrice = null,
+                                        maxPrice = null,
                                         page = 1,
                                         limit = 15
                                     } = {}) {
@@ -165,11 +168,15 @@ export async function fetchListings({
             .order('created_at', { ascending: false })
             .range(offset, offset + limit - 1);
 
+        // ===== 原有条件 =====
         if (state) query = query.eq('state', state);
-
+        if (city) query = query.eq('city', city);
         if (category) query = query.eq('category', category);
-
         if (make) query = query.eq('make', make);
+
+        // ===== 新增 price 区间 =====
+        if (minPrice !== null) query = query.gte('price', minPrice);
+        if (maxPrice !== null) query = query.lte('price', maxPrice);
 
         const { data, error, count } = await query;
 
@@ -178,8 +185,8 @@ export async function fetchListings({
             throw error;
         }
 
-        // 正确分页排序
-        const sorted = data.sort((a, b) => {
+        // ⭐ 保持你的分页后排序逻辑
+        const sorted = (data || []).sort((a, b) => {
 
             if (a.image_cover === '404.jpg' && b.image_cover !== '404.jpg')
                 return 1;
@@ -190,11 +197,13 @@ export async function fetchListings({
             return 0;
         });
 
+        const safeCount = count ?? 0;
+
         return {
             data: sorted,
-            count,
+            count: safeCount,
             page,
-            totalPages: Math.ceil(count / limit),
+            totalPages: Math.ceil(safeCount / limit),
             error: null
         };
 
@@ -249,6 +258,40 @@ export async function fetchListingById(id) {
             data: null,
             error: err.message
         };
+    }
+}
+
+export async function fetchCitiesByState(state) {
+    try {
+        const { data, error } = await supabase.rpc('get_cities_by_state', {
+            p_state: state   // ⚠️ 参数名必须和 postgres function 一致
+        });
+
+        if (error) {
+            throw new Error(`获取 cities 时发生错误: ${error.message}`);
+        }
+
+        return { data, error: null };
+    } catch (err) {
+        console.error('fetchCitiesByState 错误:', err);
+        return { data: null, error: err.message };
+    }
+}
+
+export async function fetchMakesByState(state) {
+    try {
+        const { data, error } = await supabase.rpc('get_makes_by_state', {
+            p_state: state   // ⚠️ 必须和 postgres 参数名一致
+        });
+
+        if (error) {
+            throw new Error(`获取 makes 时发生错误: ${error.message}`);
+        }
+
+        return { data, error: null };
+    } catch (err) {
+        console.error('fetchMakesByState 错误:', err);
+        return { data: null, error: err.message };
     }
 }
 

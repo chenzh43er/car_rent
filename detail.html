@@ -9,6 +9,56 @@
   <link rel="stylesheet" href="./css/style.css">
   <link rel="icon" href="./img/icon.png" type="image/png">
   <script src="./js/utlParam.js"></script>
+  <style>
+    .detail-form {
+      padding: 16px;
+      font-family: GoogleSans;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 12px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all .2s ease; /* ⭐ hover过渡 */
+
+    }
+
+    /* 主按钮 */
+    .primary {
+      background: #e32752;
+      color: #fff;
+    }
+
+    /* hover 略微变深 */
+    .primary:hover {
+      background: #c91f46;
+    }
+
+    /* 次按钮 */
+    .secondary {
+      background: #f2f3f5;
+      color: #333;
+    }
+
+    .secondary:hover {
+      background: #e5e6eb;
+    }
+
+    /* 移动端 */
+    @media (max-width: 768px) {
+      .btn-group {
+        flex-direction: column;
+      }
+    }
+    </style>
 <body>
 <header id="header">
 </header>
@@ -54,8 +104,17 @@
           </div>
           <div class="ad-layout"></div>
         </div>
+
+        <div class="detail-form">
+          <div class="btn-group">
+            <button class="btn primary" onclick="goForm()">Contact us</button>
+            <button class="btn secondary" onclick="goState()">Back to list</button>
+          </div>
+        </div>
         <div class="car-bottom">
-          <h2>Jeep in Alabama</h2>
+
+          <h2 id="makeInState">Jeep in Alabama</h2>
+
           <div class="car-list" id = "car-bottom">
             <div class="car-con">
               <div class="car-item">
@@ -85,154 +144,13 @@
                 </div>
               </div>
             </div>
-            <div class="car-con">
-              <div class="car-item">
-                <a href="/used-cars/listing-9251/" class="link-cover"></a>
-                <div class="car-pic">
-                  <div class="car-pic-pop">POPULAR</div>
-                  <img src="https://car.carslyst.com/public/static/Images/load-s.webp" alt="Used 2015 JEEP PATRIOT For Sale">
-                  <div class="car-pic-tip">
-                    <svg><use xlink:href="#icon-pic"></use></svg>
-                    <span class="car-pic-num">1</span>
-                  </div>
-                </div>
-                <div class="car-content">
-                  <div class="car-title">Used 2015 JEEP PATRIOT For Sale</div>
-                  <div class="car-info">
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-location"></use></svg>
-                      <span>Alabaster</span>
-                    </div>
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-date"></use></svg>
-                      <span>Jan 06, 2024</span>
-                    </div>
-                  </div>
-                  <div class="car-des"><p>$259/MONTH THIS JEEP PATRIOT IS SUPER CLEAN!<br><br> IT HAS LEATHER INTERIOR, HEATED SEATS, REMOTE START, ALL POWER EQUIPMENT, SUNROOF, BLUETOOTH, TOW HITCH AND MUCH MORE! WE HAVE INCLUDED OUR FREE SNELL AUTO CARE WARRANTY WITH THE PURCHASE OF THIS VEHICLE WHICH CAN BE EXTENDED FOR EVEN LONGER, GREAT COVERAGE! STOP IN TODAY AND TAKE THIS HOME!</p><p>Used 2015 Jeep Patriot 101,493 miles, Gray</p></div>
-                  <div class="car-prices">$<span class="car-total">10,995</span></div>
-                </div>
-              </div>
-            </div>
-            <div class="car-con">
-              <div class="car-item">
-                <a href="/used-cars/listing-9341/" class="link-cover"></a>
-                <div class="car-pic">
-                  <div class="car-pic-pop">POPULAR</div>
-                  <img src="https://car.carslyst.com/public/static/Images/load-s.webp" alt="Used 2015 JEEP CHEROKEE For Sale">
-                  <div class="car-pic-tip">
-                    <svg><use xlink:href="#icon-pic"></use></svg>
-                    <span class="car-pic-num">1</span>
-                  </div>
-                </div>
-                <div class="car-content">
-                  <div class="car-title">Used 2015 JEEP CHEROKEE For Sale</div>
-                  <div class="car-info">
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-location"></use></svg>
-                      <span>Alabaster</span>
-                    </div>
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-date"></use></svg>
-                      <span>Jan 06, 2024</span>
-                    </div>
-                  </div>
-                  <div class="car-des"><p>1-owner with only 36,061 miles with a great service history and includes a warranty!<br><br> Back up camera, power windows and locks, bluetooth, steering controls, usb port, auxiliary input, side airbags, dual front airbags, AC, alloy wheels, and 4 nice Hankook tires on this very clean 2015 Jeep Cheroke Latitude 4x4 with the absolute best miles around!</p>
-                    <p>This is a TON of SUV for the money! Come and check it out before its gone! Come shop with kind salespeople in a no pressure environment! Our Dealer Process Fee is ONLY $178--THE LOW PRICE YOU SEE IS THE LOW PRICE YOU PAY!</p><p>Used 2015 Jeep Cherokee 36,061 miles, Gray</p></div>
-                  <div class="car-prices">$<span class="car-total">16,977</span></div>
-                </div>
-              </div>
-            </div>
-            <div class="car-con">
-              <div class="car-item">
-                <a href="/used-cars/listing-10050/" class="link-cover"></a>
-                <div class="car-pic">
-                  <div class="car-pic-pop">POPULAR</div>
-                  <img src="https://car.carslyst.com/public/static/Images/load-s.webp" alt="2018 Jeep Renegade Limited 4x4 4dr SUV for Sale">
-                  <div class="car-pic-tip">
-                    <svg><use xlink:href="#icon-pic"></use></svg>
-                    <span class="car-pic-num">1</span>
-                  </div>
-                </div>
-                <div class="car-content">
-                  <div class="car-title">2018 Jeep Renegade Limited 4x4 4dr SUV for Sale</div>
-                  <div class="car-info">
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-location"></use></svg>
-                      <span>Alabaster</span>
-                    </div>
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-date"></use></svg>
-                      <span>Jan 07, 2024</span>
-                    </div>
-                  </div>
-                  <div class="car-des"><p>4X4.<br><br> ONE OWNER VEHICLE WITH CLEAN HISTORY! LIMITED TRIM. QUICK ORDER PACKAGE 2EG LOADED WITH HEATED LEATHER SEATS. BACK-UP CAMERA. PANORAMIC SUNROOF. HEATED STEERING WHEEL. SATELLITE RADIO. BLUETOOTH CONNECTIVITY. INTEGRATED TURN SIGNAL MIRRORS. REAR PARKING AID. SMART DEVICE INTEGRATION. BEATS PREMIUM SOUND SYSTEM. RAIN SENSING WIPERS. POWER</p><p>OPTIONS (SEAT. WINDOWS. DOOR LOCKS. MIRRORS). FOG LIGHTS. REMOTE KEYLESS ENTRY. HEATED MIRRORS. MP3 CAPABILITY. REAR SPOILER. REAR PRIVACY GLASS. STEERING WHEEL MOUNTED CRUISE &amp; AUDIO CONTROLS. LCD AUDIO DISPLAY. USB PORT/AUX INPUT. LUGGAGE RACK. ALLOY WHEELS AND MORE!<br><br> VERY CLEAN! CARFAX GUARANTEE. Buy with confidence at vantage motors. All cars sold at vantage motors have been serviced; we do not cut corners on our inventory. Professionalism is our pride; customer service is our priority! We do not include inferior warranties on our cars and hid.</p><p>Used 2018 Jeep Renegade Limited, 59,817 miles, White</p></div>
-                  <div class="car-prices">$<span class="car-total">19,995</span></div>
-                </div>
-              </div>
-            </div>
-            <div class="car-con">
-              <div class="car-item">
-                <a href="/used-cars/listing-10062/" class="link-cover"></a>
-                <div class="car-pic">
-                  <div class="car-pic-pop">POPULAR</div>
-                  <img src="https://car.carslyst.com/public/static/Images/load-s.webp" alt="2014 Jeep Cherokee Trailhawk 4x4 4dr SUV for Sale">
-                  <div class="car-pic-tip">
-                    <svg><use xlink:href="#icon-pic"></use></svg>
-                    <span class="car-pic-num">1</span>
-                  </div>
-                </div>
-                <div class="car-content">
-                  <div class="car-title">2014 Jeep Cherokee Trailhawk 4x4 4dr SUV for Sale</div>
-                  <div class="car-info">
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-location"></use></svg>
-                      <span>Alabaster</span>
-                    </div>
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-date"></use></svg>
-                      <span>Jan 07, 2024</span>
-                    </div>
-                  </div>
-                  <div class="car-des"><p>One look at this 2014 Jeep Cherokee Trail Hawk Sport Utility 4D and you will just know.<br><br> this is your ride. Like all the vehicles that we sell. this one has been through a thorough MULTI-POINT INSPECTION by our skilled technicians to be certain that it is of the highest quality. All essential mechanical systems are in solid working order leaving</p><p>you with years between any required maintenance. Everyone has credit problems but at JNM Auto Group we don't feel this should prevent you from affording transportation. Our GUARANTEED FINANCING will do the heavy lifting. get you approved. and have you back on the road in no time.<br><br> Want a CARFAX? Not an issue! We supply a free report with all of our vehicles. Cash Buyers Welcome. Come In and Make A Deal! This car comes with 90 days warranty. We are located only minutes from Gainesville!</p><p>Used 2014 Jeep Cherokee Trailhawk, 140,248 miles, Black</p></div>
-                  <div class="car-prices">$<span class="car-total">11,995</span></div>
-                </div>
-              </div>
-            </div>
-            <div class="car-con">
-              <div class="car-item">
-                <a href="/used-cars/listing-10212/" class="link-cover"></a>
-                <div class="car-pic">
-                  <div class="car-pic-pop">POPULAR</div>
-                  <img src="https://car.carslyst.com/public/static/Images/load-s.webp" alt="2016 Jeep Grand Cherokee Laredo 4x4 4dr SUV for Sale">
-                  <div class="car-pic-tip">
-                    <svg><use xlink:href="#icon-pic"></use></svg>
-                    <span class="car-pic-num">1</span>
-                  </div>
-                </div>
-                <div class="car-content">
-                  <div class="car-title">2016 Jeep Grand Cherokee Laredo 4x4 4dr SUV for Sale</div>
-                  <div class="car-info">
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-location"></use></svg>
-                      <span>Alabaster</span>
-                    </div>
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-date"></use></svg>
-                      <span>Jan 07, 2024</span>
-                    </div>
-                  </div>
-                  <div class="car-des"><p>The front windshield is in excellent condition.<br><br> The paint is in great shape and condition. No dings are visible on this vehicle. The tires are slightly worn with about 75% of tread life left. The interior is clean and in good condition. The exterior is clean and in good condition. The engine is functioning properly and has no issues. This vehicle</p><p>has no previous collision damage. The transmission shifts very smoothly. The brakes are in great condition. The battery is in excellent condition. The car was previously owned by a non smoker.</p><p>Used 2016 Jeep Grand Cherokee Laredo, 153,193 miles, Gray</p></div>
-                  <div class="car-prices">$<span class="car-total">11,995</span></div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
 
       <div class="aside" style="height: auto !important;">
         <div class="aside-buy" style="height: auto !important;">
-          <h2>SUVs in Alabama</h2>
+          <h2 id="typeInState">SUVs in Alabama</h2>
           <div class="car-list" style="height: auto !important;" id ="car-aside">
             <div class="car-con">
               <div class="car-item">
@@ -258,247 +176,6 @@
                   </div>
                   <div class="car-des"><p>Features: 4-Cyl Flex Fuel 2.4 Liter, Automatic 6-Spd, ABS (4-Wheel), AM/FM Stereo, Air Bags (Side): Front, Air Bags: Dual Front, Air Bags: F and R Head Curtain, Air Conditioning, Bluetooth Connection, CD: MP3 (Single), Cruise Control, Daytime Running Lights, FWD, On Star, Power Door Locks, Power Steering, Power Windows, Seat: Power Driver, Sirius XM Satellite Radio, Stabili Trak, Tilt and Telescoping Wheel, Traction Control</p><p>Used 2014 Chevrolet Captiva Sport 138,034 miles, Silver</p></div>
                   <div class="car-prices">$<span class="car-total">12,995</span></div>
-                </div>
-              </div>
-            </div>
-            <div class="car-con">
-              <div class="car-item">
-                <a href="/used-cars/listing-9132/" class="link-cover"></a>
-                <div class="car-pic">
-                  <img src="https://car.carslyst.com/public/static/Images/load-s.webp" alt="">
-                  <div class="car-pic-tip">
-                    <svg><use xlink:href="#icon-pic"></use></svg>
-                    <span class="car-pic-num">1</span>
-                  </div>
-                </div>
-                <div class="car-content">
-                  <div class="car-title">2018 GMC Acadia Denali AWD SPORT UTILITY 4-DR for Sale</div>
-                  <div class="car-info">
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-location"></use></svg>
-                      <span>Alabaster</span>
-                    </div>
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-date"></use></svg>
-                      <span>Jan 07, 2024</span>
-                    </div>
-                  </div>
-                  <div class="car-des"><p>Don't forget you can text us or call us at (559) 646-xyz X, we are located at 13034 E.<br><br> Manning Ave, Parlier CA 93648. Recuerde que nos puede mandar mensaje de texto o llamar al (559) 646-xyz X estamos ubicados en 13034 E. Manning Ave, Parlier CA 93648. This vehicle has a Salvage title, dont run the risk of buying a used car with costly hidden</p><p>problems. Get a detailed vehicle history report by coming in to our office, we have them available for all of our customers. Venga en cualquier momento entre las 8am a 7pm. De Lunes a Viernes, los Sabados estamos abiertos des de 8am a 1:30pm. Y los Domingos con cita.<br><br> Come in anytime between 8 am and 7 pm Monday through Friday , Saturdays we are open 8 am to 1:30 pm and Sundays by appointment.</p><p>Used 2018 GMC Acadia Denali, 35,981 miles</p></div>
-                </div>
-              </div>
-            </div>
-            <div class="car-con">
-              <div class="car-item">
-                <a href="/used-cars/listing-9161/" class="link-cover"></a>
-                <div class="car-pic">
-                  <img src="https://car.carslyst.com/public/static/Images/load-s.webp" alt="">
-                  <div class="car-pic-tip">
-                    <svg><use xlink:href="#icon-pic"></use></svg>
-                    <span class="car-pic-num">1</span>
-                  </div>
-                </div>
-                <div class="car-content">
-                  <div class="car-title">2014 Ford Expedition EL King Ranch 4x4 4dr SUV for Sale</div>
-                  <div class="car-info">
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-location"></use></svg>
-                      <span>Alabaster</span>
-                    </div>
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-date"></use></svg>
-                      <span>Jan 07, 2024</span>
-                    </div>
-                  </div>
-                  <div class="car-des"><p>EXTENDED WARRANTY AVAILABLE AT UNBEATABLE PRICES United Auto Gallery offering the best selection of pre-owned cars.<br><br> trucks. or SUVs available. Our mission is to provide the best customer service. hassle-free car buying experience. All cars in United Auto Gallery have a clean Title. Act fast! and book your test drive today! TEXT (DRIVE NOW )</p><p>TO (678) 848-xyz X) Good credit. bad credit. no credit - No Problem! We can get you financed. Fill out our finance application. secure. /ssfinance. aspx? jesxel=713807.</p><p>Used 2014 Ford Expedition EL King Ranch, 132,249 miles, Green</p></div>
-                </div>
-              </div>
-            </div>
-            <div class="car-con">
-              <div class="car-item">
-                <a href="/used-cars/listing-9237/" class="link-cover"></a>
-                <div class="car-pic">
-                  <img src="https://car.carslyst.com/public/static/Images/load-s.webp" alt="">
-                  <div class="car-pic-tip">
-                    <svg><use xlink:href="#icon-pic"></use></svg>
-                    <span class="car-pic-num">1</span>
-                  </div>
-                </div>
-                <div class="car-content">
-                  <div class="car-title">2014 Chevrolet Equinox Ls Suv for Sale</div>
-                  <div class="car-info">
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-location"></use></svg>
-                      <span>Alabaster</span>
-                    </div>
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-date"></use></svg>
-                      <span>Jan 07, 2024</span>
-                    </div>
-                  </div>
-                  <div class="car-des"><p> LS PACKAGE SUV  NEW DEALERSHIP TRADE IN!<br><br>  CLEAN SOLID BODY!  GREAT RUNNING AND DRIVING  KELLY BLUE BOOK WELL OVER $ 5,000.00 THIS GREAT CONDITION NEW CAR DEALERSHIP TRADE IN RUNS AND DRIVES AND LOOKS SUPER GREAT! IT SHIFTS, HANDLES, SOUNDS AND OPERATES SUPER GREAT! IT IS VERY CLEAN AND SOLID INSIDE AND OUT! THIS LIL SUV HAS A ICE SELECTION OF OPTIONS AND FEELS ELEGANT TO OPERATE. ITS PAINT AND FINISH IS IN REAL NICE CONDITION. COME CHECK OUT THIS SWEET LIL SUV , CALL US AT 320 632 xyz X</p><p>Used 2014 Chevrolet Equinox LS, 216,205 miles</p></div>
-                  <div class="car-prices">$<span class="car-total">3,800</span></div>
-                </div>
-              </div>
-            </div>
-            <div class="car-con">
-              <div class="car-item">
-                <a href="/used-cars/listing-9241/" class="link-cover"></a>
-                <div class="car-pic">
-                  <img src="https://car.carslyst.com/public/static/Images/load-s.webp" alt="">
-                  <div class="car-pic-tip">
-                    <svg><use xlink:href="#icon-pic"></use></svg>
-                    <span class="car-pic-num">1</span>
-                  </div>
-                </div>
-                <div class="car-content">
-                  <div class="car-title">2006 Honda CR-V EX 4WD AT SPORT UTILITY 4-DR for Sale</div>
-                  <div class="car-info">
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-location"></use></svg>
-                      <span>Alabaster</span>
-                    </div>
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-date"></use></svg>
-                      <span>Jan 07, 2024</span>
-                    </div>
-                  </div>
-                  <div class="car-des"><p>Features: Child Safety Door Locks, Power Door Locks, Vehicle Anti-Theft,4WD/AWD, ABS Brakes, Electronic Brake Assistance, Traction Control, Vehicle Stability Control System, Driver Airbag, Front Side Airbag, Passenger Airbag, Side Head Curtain Airbag, Keyless Entry, Air Conditioning, Cruise Control, Tachometer, Tilt Steering, Tilt Steering Column, Steering</p><p>Wheel Mounted Controls, AM/FM Radio, Cassette Player, CD Player, CD Changer, Second Row Folding Seat, Cargo Area Tiedowns, Power Sunroof, Manual Sunroof, Front Air Dam, Splash Guards, Alloy Wheels, Full Size Spare Tire, Power Windows, Power Adjustable Exterior Mirror, Deep Tinted Glass, Interval Wipers, Rear Window Defogger, Rear Wiper</p><p>Used 2006 Honda CR-V EX 4WD, 94,237 miles</p></div>
-                  <div class="car-prices">$<span class="car-total">8,995</span></div>
-                </div>
-              </div>
-            </div>
-            <div class="car-con">
-              <div class="car-item">
-                <a href="/used-cars/listing-9251/" class="link-cover"></a>
-                <div class="car-pic">
-                  <img src="https://car.carslyst.com/public/static/Images/load-s.webp" alt="">
-                  <div class="car-pic-tip">
-                    <svg><use xlink:href="#icon-pic"></use></svg>
-                    <span class="car-pic-num">1</span>
-                  </div>
-                </div>
-                <div class="car-content">
-                  <div class="car-title">Used 2015 JEEP PATRIOT For Sale</div>
-                  <div class="car-info">
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-location"></use></svg>
-                      <span>Alabaster</span>
-                    </div>
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-date"></use></svg>
-                      <span>Jan 06, 2024</span>
-                    </div>
-                  </div>
-                  <div class="car-des"><p>$259/MONTH THIS JEEP PATRIOT IS SUPER CLEAN!<br><br> IT HAS LEATHER INTERIOR, HEATED SEATS, REMOTE START, ALL POWER EQUIPMENT, SUNROOF, BLUETOOTH, TOW HITCH AND MUCH MORE! WE HAVE INCLUDED OUR FREE SNELL AUTO CARE WARRANTY WITH THE PURCHASE OF THIS VEHICLE WHICH CAN BE EXTENDED FOR EVEN LONGER, GREAT COVERAGE! STOP IN TODAY AND TAKE THIS HOME!</p><p>Used 2015 Jeep Patriot 101,493 miles, Gray</p></div>
-                  <div class="car-prices">$<span class="car-total">10,995</span></div>
-                </div>
-              </div>
-            </div>
-            <div class="car-con">
-              <div class="car-item">
-                <a href="/used-cars/listing-9281/" class="link-cover"></a>
-                <div class="car-pic">
-                  <img src="https://car.carslyst.com/public/static/Images/load-s.webp" alt="">
-                  <div class="car-pic-tip">
-                    <svg><use xlink:href="#icon-pic"></use></svg>
-                    <span class="car-pic-num">1</span>
-                  </div>
-                </div>
-                <div class="car-content">
-                  <div class="car-title">2013 GMC Terrain SLT-1 SUV for Sale</div>
-                  <div class="car-info">
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-location"></use></svg>
-                      <span>Alabaster</span>
-                    </div>
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-date"></use></svg>
-                      <span>Jan 06, 2024</span>
-                    </div>
-                  </div>
-                  <div class="car-des"><p>COMING SOON, CALL TODAY TO BE FIRST ON THE LIST If you're ready for a different, no hassle and pleasant car buying experience, then give us a chance!<br><br> We're breaking the standard Car Sales mold and making one of our very own you'll be sure to appreciate! So, why buy from Crase Auto Connection? Here's a simple answer. For the experience you deserve</p><p>and desire when purchasing an automobile! If you are tired of the age-old pushy salesman and sitting at dealerships for hours on end, then come see us and let us show you how pleasant it can actually be! Our vehicles come with a FREE Carfax history report, ALL vehicles go through our ASE Certified service department for a 120-point inspection then repaired and ready for re-sale.<br><br> Let us prove the difference! At Crase Auto not only will we connect you to your ideal vehicle at a competitive price, but we will strive to give you the best buying experience to make a lifetime connection with you AND your family and friends! Don't worry about pushy sales tactics, we consist of a small staff,</p><p>and we all work together to make your trip here a satisfied and more importantly, a different trip than any other you have made to any other dealership. We take trade-ins as well, so don't hesitate to bring in your current vehicle.<br><br> Our finance department works with many of the top lenders to get you your right payment. We offer extended service contracts through very reputable companies that we have worked with for many years for your entire extended service contract and gap insurance needs to help keep your investment protected. #craseauto #buyusedsavethedifference #channahonil #preownedautos #shopsmallbusiness</p><p>Used 2013 GMC Terrain SLT, 68,562 miles, Black</p></div>
-                  <div class="car-prices">$<span class="car-total">11,919</span></div>
-                </div>
-              </div>
-            </div>
-            <div class="car-con">
-              <div class="car-item">
-                <a href="/used-cars/listing-9285/" class="link-cover"></a>
-                <div class="car-pic">
-                  <img src="https://car.carslyst.com/public/static/Images/load-s.webp" alt="">
-                  <div class="car-pic-tip">
-                    <svg><use xlink:href="#icon-pic"></use></svg>
-                    <span class="car-pic-num">1</span>
-                  </div>
-                </div>
-                <div class="car-content">
-                  <div class="car-title">2024 Honda Passport SilverWhite for Sale</div>
-                  <div class="car-info">
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-location"></use></svg>
-                      <span>Alabaster</span>
-                    </div>
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-date"></use></svg>
-                      <span>Jan 07, 2024</span>
-                    </div>
-                  </div>
-                  <div class="car-des"><p>Call today to schedule your test drive!<br><br> Tax, Title, license, any dealer added accessories and customer service fee not included. Some vehicles listed may be in production, in transit or subject to previous sale. Blind Spot Monitor, Power Folding Mirrors, Auxiliary Audio Input, Keyless Start, Power Liftgate, Telematics, Remote Trunk Release,</p><p>Driver Adjustable Lumbar, Passenger Illuminated Visor Mirror, Passenger Vanity Mirror, Driver Vanity Mirror, Integrated Turn Signal Mirrors, Variable Speed Intermittent Wipers, Privacy Glass, Fog Lamps, Sun/Moon Roof, Tires - Front All-Terrain, Adjustable Steering Wheel, Power Steering, Navigation System, Daytime Running Lights, Child Safety Locks, Locking/Limited Slip Differential, A/C, Multi-Zone A/C, All Wheel Drive, Power Door Locks, Leather Seats, Steering Wheel Audio Controls, Keyless Entry, MP3 Player, Warranty, Adaptive Cruise Control, Lane Keeping Assist, Rear Bench Seat, Brake Assist, Universal Garage Door Opener, Transmission w/Dual Shift Mode, Leather Steering Wheel, Rear Parking</p><p>Aid, Intermittent Wipers, Aluminum Wheels, Temporary Spare Tire, Tires - Rear All-Terrain, Pass-Through Rear Seat, Power Driver Seat, Front Floor Mats,4-Wheel Disc Brakes, Alarm, Climate Control, Rear Head Air Bag, Heated Mirrors, Traction Control, Power Passenger Seat, Bucket Seats, Cruise Control, Bluetooth Connection, Power Windows, Auto-Off Headlights, Auto-Dimming Rearview Mirror, Driver Illuminated Vanity Mirror, Rear Spoiler, Tire Pressure Monitor, Trip Computer, Remote Engine Start, Back-Up Camera, Stability Control, HD Radio, Passenger Air Bag Sensor, Lane Departure Warning, Cross-Traffic Alert, Smart Device Integration, Driver Air Bag, Passenger Air Bag, Front Side Air Bag, Front Head Air Bag, Rear A/C, AM/FM Stereo,4-Wheel ABS, Rear Defrost, Power Driver Mirror, Power Tilt/Sliding Sunroof, Heated Driver Seat, Vehicle Anti-Theft System</p><p>New 2024 Honda Passport Silver</p></div>
-                  <div class="car-prices">$<span class="car-total">46,350</span></div>
-                </div>
-              </div>
-            </div>
-            <div class="car-con">
-              <div class="car-item">
-                <a href="/used-cars/listing-9291/" class="link-cover"></a>
-                <div class="car-pic">
-                  <img src="https://car.carslyst.com/public/static/Images/load-s.webp" alt="">
-                  <div class="car-pic-tip">
-                    <svg><use xlink:href="#icon-pic"></use></svg>
-                    <span class="car-pic-num">1</span>
-                  </div>
-                </div>
-                <div class="car-content">
-                  <div class="car-title">2022 Cadillac XT6 Premium Luxury 4x4 4dr SUV for Sale</div>
-                  <div class="car-info">
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-location"></use></svg>
-                      <span>Alabaster</span>
-                    </div>
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-date"></use></svg>
-                      <span>Jan 07, 2024</span>
-                    </div>
-                  </div>
-                  <div class="car-des"><p>One owner clean carfax still under warranty by Cadillac dealer.</p><p>Used 2022 125,144 miles Black</p></div>
-                  <div class="car-prices">$<span class="car-total">30,995</span></div>
-                </div>
-              </div>
-            </div>
-            <div class="car-con">
-              <div class="car-item">
-                <a href="/used-cars/listing-9341/" class="link-cover"></a>
-                <div class="car-pic">
-                  <img src="https://car.carslyst.com/public/static/Images/load-s.webp" alt="">
-                  <div class="car-pic-tip">
-                    <svg><use xlink:href="#icon-pic"></use></svg>
-                    <span class="car-pic-num">1</span>
-                  </div>
-                </div>
-                <div class="car-content">
-                  <div class="car-title">Used 2015 JEEP CHEROKEE For Sale</div>
-                  <div class="car-info">
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-location"></use></svg>
-                      <span>Alabaster</span>
-                    </div>
-                    <div class="car-info-item">
-                      <svg><use xlink:href="#icon-date"></use></svg>
-                      <span>Jan 06, 2024</span>
-                    </div>
-                  </div>
-                  <div class="car-des"><p>1-owner with only 36,061 miles with a great service history and includes a warranty!<br><br> Back up camera, power windows and locks, bluetooth, steering controls, usb port, auxiliary input, side airbags, dual front airbags, AC, alloy wheels, and 4 nice Hankook tires on this very clean 2015 Jeep Cheroke Latitude 4x4 with the absolute best miles around!</p><p>This is a TON of SUV for the money! Come and check it out before its gone! Come shop with kind salespeople in a no pressure environment! Our Dealer Process Fee is ONLY $178--THE LOW PRICE YOU SEE IS THE LOW PRICE YOU PAY!</p><p>Used 2015 Jeep Cherokee 36,061 miles, Gray</p></div>
-                  <div class="car-prices">$<span class="car-total">16,977</span></div>
                 </div>
               </div>
             </div>
@@ -630,6 +307,9 @@
 
     const titleContainer =
             document.querySelector(".container.detail");
+
+    document.getElementById("makeInState").innerText = `${item.make} in ${item.state}`
+    document.getElementById("typeInState").innerText = `${item.category} in ${item.state}`
 
     if (titleContainer) {
 
@@ -1020,6 +700,16 @@ ${
 
   });
 
+</script>
+
+<script>
+  function goForm() {
+    window.location.href = "./form.html";
+  }
+
+  function goState(){
+    window.location.href = "./states.html";
+  }
 </script>
 
 

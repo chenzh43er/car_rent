@@ -237,15 +237,19 @@
 
   async function loadDetailPage() {
 
-    const match =
-            window.location.pathname
-                    .match(/listing-(\d+)/);
+    // const match =
+    //         window.location.pathname
+    //                 .match(/listing-(\d+)/);
+    //
+    // const params = new URLSearchParams(window.location.search);
+    // const id = params.get("id");
 
-    // const id = match ? match[1] : null;
+    const path = window.location.pathname;
 
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
-    // const id = 173124;
+    const match = path.match(/detail-(\d+)/);
+    const id = match ? match[1] : null;
+
+    console.log(id); // 30603
 
     console.log(id); // 输出: 123
 

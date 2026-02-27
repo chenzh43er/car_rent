@@ -323,17 +323,20 @@
   ========================================
   */
 
+  function extractIdFromDetailUrl() {
+    const match = window.location.pathname.match(/detail-(\d+)/);
+    return match ? match[1] : null;
+  }
+
   async function loadDetailPage() {
 
-    const match =
-            window.location.pathname
-                    .match(/listing-(\d+)/);
+    // const match =
+    //         window.location.pathname
+    //                 .match(/listing-(\d+)/);
+    // const params = new URLSearchParams(window.location.search);
+    // const id = params.get("id");
 
-    // const id = match ? match[1] : null;
-
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
-    // const id = 173124;
+    const id = extractIdFromDetailUrl()
 
     console.log(id); // 输出: 123
 

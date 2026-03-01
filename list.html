@@ -1232,16 +1232,49 @@
     const params = getParams();
 
     const param = new URLSearchParams(window.location.search);
+    const segments = window.location.pathname.split("/").filter(Boolean);
 
-// ===== string params =====
-    let make = param.get("make") || "";
-    let state = param.get("state") || "";
-    let city = param.get("city") || "";
-    let category = param.get("category") || "";
+// ===== query 参数 =====
+    let minprice = param.get("minprice") || "";
+    let maxprice = param.get("maxprice") || "";
 
-// ===== number params =====
-    let minPrice = param.get("minprice");
-    let maxPrice = param.get("maxprice");
+// ===== 初始化 =====
+    let make = "";
+    let category = "";
+    let state = "";
+    let city = "";
+
+    /*
+    URL 结构固定为：
+
+    0  car-makes / used-cars
+    1  honda / suvs
+    2  state
+    3  list (固定)
+    4  city (动态)
+    */
+
+    if (segments[3] === "list") {
+      state = segments[2] || "";
+      city = segments[4] || "";
+
+      if (segments[0] === "car-makes") {
+        make = segments[1] || "";
+      }
+
+      if (segments[0] === "used-cars") {
+        category = segments[1] || "";
+      }
+    }
+
+    console.log({
+      make,
+      category,
+      state,
+      city,
+      minprice,
+      maxprice
+    });
 
 // ⭐ number 转换（非常重要）
     minPrice = minPrice !== null ? Number(minPrice) : null;
@@ -1477,10 +1510,53 @@
   async function renderCities() {
 
     const param = new URLSearchParams(window.location.search);
-    let make = param.get("make");
-    let state = param.get("state");
-    let category = param.get("category");
-    let city = param.get("city");
+    const segments = window.location.pathname.split("/").filter(Boolean);
+
+// ===== query 参数 =====
+    let minprice = param.get("minprice") || "";
+    let maxprice = param.get("maxprice") || "";
+
+// ===== 初始化 =====
+    let make = "";
+    let category = "";
+    let state = "";
+    let city = "";
+
+    /*
+    URL 结构固定为：
+
+    0  car-makes / used-cars
+    1  honda / suvs
+    2  state
+    3  list (固定)
+    4  city (动态)
+    */
+
+    if (segments[3] === "list") {
+      state = segments[2] || "";
+      city = segments[4] || "";
+
+      if (segments[0] === "car-makes") {
+        make = segments[1] || "";
+      }
+
+      if (segments[0] === "used-cars") {
+        category = segments[1] || "";
+      }
+    }
+
+    console.log({
+      make,
+      category,
+      state,
+      city,
+      minprice,
+      maxprice
+    });
+
+
+
+
     const label = document.getElementById('banner-city-value');
 
     if (!make) {
@@ -1640,8 +1716,49 @@
   renderCities();
 
   const param = new URLSearchParams(window.location.search);
-  let make = param.get("make");
-  let category = param.get("category");
+  const segments = window.location.pathname.split("/").filter(Boolean);
+
+  // ===== query 参数 =====
+  let minprice = param.get("minprice") || "";
+  let maxprice = param.get("maxprice") || "";
+
+  // ===== 初始化 =====
+  let make = "";
+  let category = "";
+  let state = "";
+  let city = "";
+
+  /*
+  URL 结构固定为：
+
+  0  car-makes / used-cars
+  1  honda / suvs
+  2  state
+  3  list (固定)
+  4  city (动态)
+  */
+
+  if (segments[3] === "list") {
+    state = segments[2] || "";
+    city = segments[4] || "";
+
+    if (segments[0] === "car-makes") {
+      make = segments[1] || "";
+    }
+
+    if (segments[0] === "used-cars") {
+      category = segments[1] || "";
+    }
+  }
+
+  console.log({
+    make,
+    category,
+    state,
+    city,
+    minprice,
+    maxprice
+  });
 
   if (!make) {
     make = ""
@@ -2144,14 +2261,12 @@
   var address = '103.177.80.169' ? '103.177.80.169' : '';
   var push_sites = 'car' ? 'car' : '';
 </script>
-<script src="/public/static/Js/main.js?v-11"></script>
+<script src="./js/main.js"></script>
 
 <script>
 
   var categoryInfoName = 'Toyota'
   var stateInfoName = 'Connecticut'
-
-
 
   $('.state-info-name').each(function () {
     if ($(this).find('.condition-name').text() == stateInfoName) {

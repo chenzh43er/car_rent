@@ -1235,8 +1235,8 @@
     const segments = window.location.pathname.split("/").filter(Boolean);
 
 // ===== query 参数 =====
-    let minprice = param.get("minprice") || "";
-    let maxprice = param.get("maxprice") || "";
+    let minprice = param.get("minprice") || null;
+    let maxprice = param.get("maxprice") || null;
 
 // ===== 初始化 =====
     let make = "";
@@ -1312,6 +1312,8 @@
     }
 
     document.getElementById("titleForList").innerText = textTitle;
+
+
 
 // ===== fetch =====
     const result = await fetchListings({

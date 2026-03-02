@@ -151,8 +151,8 @@ export async function fetchListings({
                                         city = null,
                                         category = null,
                                         make = null,
-                                        minPrice = null,
-                                        maxPrice = null,
+                                        minprice = null,
+                                        maxprice = null,
                                         page = 1,
                                         limit = 15
                                     } = {}) {

@@ -1277,8 +1277,8 @@
     });
 
 // ⭐ number 转换（非常重要）
-    minPrice = minPrice !== null ? Number(minPrice) : null;
-    maxPrice = maxPrice !== null ? Number(maxPrice) : null;
+    minprice = minprice !== null ? Number(minprice) : null;
+    maxprice = maxprice !== null ? Number(maxprice) : null;
 
 // ===== title 生成 =====
     let textTitle = "Used";
@@ -1301,13 +1301,13 @@
     }
 
 // price 拼接（可选 SEO 强化）
-    if (minPrice !== null || maxPrice !== null) {
-      if (minPrice !== null && maxPrice !== null) {
-        textTitle += ` ($${minPrice} - $${maxPrice})`;
-      } else if (minPrice !== null) {
-        textTitle += ` (>$${minPrice})`;
+    if (minprice !== null || maxprice !== null) {
+      if (minprice !== null && maxprice !== null) {
+        textTitle += ` ($${minprice} - $${maxprice})`;
+      } else if (minprice !== null) {
+        textTitle += ` (>$${minprice})`;
       } else {
-        textTitle += ` (<$${maxPrice})`;
+        textTitle += ` (<$${maxprice})`;
       }
     }
 
@@ -1992,28 +1992,28 @@
     }
   }
 
-  var minPrice = ''
-  var maxPrice = ''
-  minPrice = paramsMinpr.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  var minprice = ''
+  var maxprice = ''
+  minprice = paramsMinpr.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   $(".min-price").each(function() {
-    $(this).val(minPrice ? `$ ${minPrice}` : '');
+    $(this).val(minprice ? `$ ${minprice}` : '');
   })
-  maxPrice = paramsMaxpr.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  maxprice = paramsMaxpr.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   $(".max-price").each(function() {
-    $(this).val(maxPrice ? `$ ${maxPrice}` : '');
+    $(this).val(maxprice ? `$ ${maxprice}` : '');
   })
 
-  if(minPrice == '' && maxPrice == '') {
+  if(minprice == '' && maxprice == '') {
     $(".price-subvalue").text('All')
-  }else if (minPrice !== '' && maxPrice == '') {
-    $(".price-subvalue").text(`Min $${minPrice}`);
-    $(".banner-price-value").text(`Min $${minPrice}`);
-  }else if(minPrice == '' && maxPrice !== '') {
-    $(".price-subvalue").text(`Max $${maxPrice}`);
-    $(".banner-price-value").text(`Max $${maxPrice}`);
+  }else if (minprice !== '' && maxprice == '') {
+    $(".price-subvalue").text(`Min $${minprice}`);
+    $(".banner-price-value").text(`Min $${minprice}`);
+  }else if(minprice == '' && maxprice !== '') {
+    $(".price-subvalue").text(`Max $${maxprice}`);
+    $(".banner-price-value").text(`Max $${maxprice}`);
   }else {
-    $(".price-subvalue").text(`$${minPrice} - $${maxPrice}`);
-    $(".banner-price-value").text(`$${minPrice} - $${maxPrice}`);
+    $(".price-subvalue").text(`$${minprice} - $${maxprice}`);
+    $(".banner-price-value").text(`$${minprice} - $${maxprice}`);
   }
 
   if(paramsOrder) {
@@ -2131,13 +2131,13 @@
     let value = input.value.replace(/[^\d]/g, '');
     value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     input.value = value ? `$ ${value}` : '';
-    minPrice = value ? value : ''
+    minprice = value ? value : ''
   }
   function formatMaxAccountNumber(input) {
     let value = input.value.replace(/[^\d]/g, '');
     value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     input.value = value ? `$ ${value}` : '';
-    maxPrice = value ? value : ''
+    maxprice = value ? value : ''
   }
 
 

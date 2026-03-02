@@ -175,8 +175,8 @@ export async function fetchListings({
         if (make) query = query.eq('make', make);
 
         // ===== 新增 price 区间 =====
-        if (minPrice !== null) query = query.gte('price', minPrice);
-        if (maxPrice !== null) query = query.lte('price', maxPrice);
+        if (minprice !== null) query = query.gte('price', minprice);
+        if (maxprice !== null) query = query.lte('price', maxprice);
 
         const { data, error, count } = await query;
 

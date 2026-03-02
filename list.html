@@ -1582,17 +1582,15 @@
 
     document.getElementById("banner-state-value").innerText = state
 
-    stateListEl.innerHTML = states.map((state, index) => {
-
-      const url = new URL(window.location.href);
-      url.searchParams.set('state', state.state); // 改 state
+    stateListEl.innerHTML = states.map((state) => {
+      const urlStr = `/used-cars/${category}/${encodeURIComponent(state.state)}/list`;
 
       return `
     <li class="filter-banner-item">
-      <a href="${url.pathname + url.search}">${state.state}</a>
+      <a href="${urlStr}">${state.state}</a>
     </li>
   `;
-    }).join('');
+    }).join("");
   }
 
   async function renderCities() {

@@ -1693,18 +1693,40 @@
 
     cities.forEach(({ city }) => {
 
-      const url = new URL(window.location.href);
-
-      url.searchParams.set('city', city);
-
       const slug = city.toLowerCase().replace(/\s+/g, '-');
 
       const li = document.createElement('li');
       li.className = 'filter-banner-item';
 
       const a = document.createElement('a');
-      a.href = url.toString();
       a.textContent = city;
+
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const parts = window.location.pathname.split('/').filter(Boolean);
+
+        const listIndex = parts.indexOf('list');
+        if (listIndex === -1) return;
+
+        // ① list 之前的全部保留
+        const beforeList = parts.slice(0, listIndex + 1);
+
+        // ② 判断是否已有 city
+        const hasCity = parts.length > listIndex + 1;
+
+        let newParts;
+
+        if (hasCity) {
+          newParts = [...beforeList, slug];   // 替换
+        } else {
+          newParts = [...beforeList, slug];   // 添加
+        }
+
+        const newPath = '/' + newParts.join('/');
+
+        window.location.href = newPath;
+      });
 
       li.appendChild(a);
       ul.appendChild(li);

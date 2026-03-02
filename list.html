@@ -1582,8 +1582,19 @@
 
     document.getElementById("banner-state-value").innerText = state
 
+    const pathParts = window.location.pathname.split("/").filter(Boolean);
+
+    // 当前结构：
+    // [0] = used-cars 或 car-makes
+    // [1] = category
+    // [2] = state
+    // [3] = list
+
+    const baseType = pathParts[0];   // used-cars 或 car-makes
+    const category = pathParts[1];   // SUVs / Toyota 等
+
     stateListEl.innerHTML = states.map((state) => {
-      const urlStr = `/used-cars/${category}/${encodeURIComponent(state.state)}/list`;
+      const urlStr = `/${baseType}/${category}/${encodeURIComponent(state.state)}/list`;
 
       return `
     <li class="filter-banner-item">

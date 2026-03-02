@@ -1693,7 +1693,7 @@
 
     cities.forEach(({ city }) => {
 
-      const slug = city.toLowerCase().replace(/\s+/g, '-');
+      const slug = city.replace(/\s+/g, '-');
 
       const li = document.createElement('li');
       li.className = 'filter-banner-item';

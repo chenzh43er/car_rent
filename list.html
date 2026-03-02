@@ -1866,18 +1866,18 @@
       li.className = 'filter-banner-item';
 
       const a = document.createElement('a');
-      a.href = '#';
+
+      // 解析当前路径
+      const pathParts = window.location.pathname.split('/').filter(Boolean);
+      // 例: /car-makes/Ford/Connecticut/list
+      // index:        0        1       2          3
+
+      const currentState = pathParts[2];
+
+      // ⭐ 使用相对地址
+      a.href = `/car-makes/${encodeURIComponent(make)}/${encodeURIComponent(currentState)}/list`;
+
       a.textContent = total ? `${make} (${total})` : make;
-
-      a.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        const url = new URL(window.location.href);
-        url.searchParams.set('make', make);
-
-        // ⭐ SEO filter → 刷新
-        window.location.href = url;
-      });
 
       li.appendChild(a);
       ul.appendChild(li);

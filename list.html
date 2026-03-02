@@ -1780,14 +1780,20 @@
       const a = document.createElement('a');
       a.textContent = category;
 
-      // ⭐ 无刷新
       a.addEventListener('click', (e) => {
         e.preventDefault();
 
-        const url = new URL(window.location.href);
-        url.searchParams.set('category', category);
+        // 当前路径分割
+        const pathParts = window.location.pathname.split('/').filter(Boolean);
+        // 例：["used-cars", "Sedans", "Alabama", "list"]
 
-        window.location.href = url;   // ⭐ 刷新
+        const base = pathParts[0];     // used-cars
+        const state = pathParts[2];    // Alabama
+
+        // 构造新的相对路径
+        const newPath = `/${base}/${category}/${state}/list`;
+
+        window.location.href = newPath;
       });
 
       li.appendChild(a);

@@ -1591,7 +1591,7 @@
     // [3] = list
 
     const baseType = pathParts[0];   // used-cars 或 car-makes
-    const category = pathParts[1];   // SUVs / Toyota 等
+    category = pathParts[1];   // SUVs / Toyota 等
 
     stateListEl.innerHTML = states.map((state) => {
       const urlStr = `/${baseType}/${category}/${encodeURIComponent(state.state)}/list`;

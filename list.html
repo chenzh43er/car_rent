@@ -1786,15 +1786,50 @@
 
   async function renderMakes() {
 
-    // ⭐ 获取 state（query + path fallback）
-    const params = new URLSearchParams(window.location.search);
-    let state = params.get('state');
-    let make = params.get("make");
+    const param = new URLSearchParams(window.location.search);
+    const segments = window.location.pathname.split("/").filter(Boolean);
 
-    if (!state) {
-      const parts = window.location.pathname.replace(/^\/|\/$/g, '').split('/');
-      state = parts[2];
+// ===== query 参数 =====
+    let minprice = param.get("minprice") || "";
+    let maxprice = param.get("maxprice") || "";
+
+// ===== 初始化 =====
+    let make = "";
+    let category = "";
+    let state = "";
+    let city = "";
+
+    /*
+    URL 结构固定为：
+
+    0  car-makes / used-cars
+    1  honda / suvs
+    2  state
+    3  list (固定)
+    4  city (动态)
+    */
+
+    if (segments[3] === "list") {
+      state = segments[2] || "";
+      city = segments[4] || "";
+
+      if (segments[0] === "car-makes") {
+        make = segments[1] || "";
+      }
+
+      if (segments[0] === "used-cars") {
+        category = segments[1] || "";
+      }
     }
+
+    console.log({
+      make,
+      category,
+      state,
+      city,
+      minprice,
+      maxprice
+    });
 
     document.getElementById("banner-make-value").innerText = make
 

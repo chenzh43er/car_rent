@@ -362,7 +362,19 @@
       const image = item.category_img;
       const count = item.count;
 
-      let next_url = `./states.html?category=${name}`
+      const currentUrl = new URL(window.location.href);
+
+      const parts = currentUrl.pathname.split("/").filter(Boolean);
+
+      let state = null;
+
+      if (parts[0] === "car-makes" && parts.length >= 2) {
+        state = parts[1];
+      }
+
+      console.log(state);
+
+      let next_url = `/used-cars/${name}/${state}/list`
 
       const li = document.createElement("li");
 
@@ -394,6 +406,19 @@
   }
 
   document.querySelectorAll('a.link-cover, a.brand-name').forEach(el => {
+
+    const currentUrl = new URL(window.location.href);
+
+    const parts = currentUrl.pathname.split("/").filter(Boolean);
+
+    let state = null;
+
+    if (parts[0] === "used-cars" && parts.length >= 2) {
+      state = parts[1];
+    }
+
+    console.log(state);
+
     // 从 brand-name 获取 make，或者从 href 提取
     let make = el.textContent.trim();
 
@@ -406,7 +431,7 @@
     }
 
     if (make) {
-      el.href = `./states.html?make=${encodeURIComponent(make)}`;
+      el.href = `/car-makes/${encodeURIComponent(make)}/${state}/list`;
     }
   });
 

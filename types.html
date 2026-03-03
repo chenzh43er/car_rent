@@ -31,97 +31,6 @@
               </div>
               <a href="/used-cars/suvs/al/" class="brand-name">SUVs</a>
             </li>
-            <li class="general-item">
-              <a href="/used-cars/trucks/al/" class="link-cover"></a>
-              <div class="brand-pic type">
-                <img class="brand-icon" src="/public/static/Images/types/trucks.webp" alt="Trucks">
-              </div>
-              <a href="/used-cars/trucks/al/" class="brand-name">Trucks</a>
-            </li>
-            <li class="general-item">
-              <a href="/used-cars/sedans/al/" class="link-cover"></a>
-              <div class="brand-pic type">
-                <img class="brand-icon" src="/public/static/Images/types/sedans.webp" alt="Sedans">
-              </div>
-              <a href="/used-cars/sedans/al/" class="brand-name">Sedans</a>
-            </li>
-            <li class="general-item">
-              <a href="/used-cars/hybrids/al/" class="link-cover"></a>
-              <div class="brand-pic type">
-                <img class="brand-icon" src="/public/static/Images/types/hybrids.webp" alt="Hybrids">
-              </div>
-              <a href="/used-cars/hybrids/al/" class="brand-name">Hybrids</a>
-            </li>
-            <li class="general-item">
-              <a href="/used-cars/vans/al/" class="link-cover"></a>
-              <div class="brand-pic type">
-                <img class="brand-icon" src="/public/static/Images/types/vans.webp" alt="Vans">
-              </div>
-              <a href="/used-cars/vans/al/" class="brand-name">Vans</a>
-            </li>
-            <li class="general-item">
-              <a href="/used-cars/coupes/al/" class="link-cover"></a>
-              <div class="brand-pic type">
-                <img class="brand-icon" src="/public/static/Images/types/coupes.webp" alt="Coupes">
-              </div>
-              <a href="/used-cars/coupes/al/" class="brand-name">Coupes</a>
-            </li>
-            <li class="general-item">
-              <a href="/used-cars/hatchbacks/al/" class="link-cover"></a>
-              <div class="brand-pic type">
-                <img class="brand-icon" src="/public/static/Images/types/hatchbacks.webp" alt="Hatchbacks">
-              </div>
-              <a href="/used-cars/hatchbacks/al/" class="brand-name">Hatchbacks</a>
-            </li>
-            <li class="general-item">
-              <a href="/used-cars/convertibles/al/" class="link-cover"></a>
-              <div class="brand-pic type">
-                <img class="brand-icon" src="/public/static/Images/types/convertibles.webp" alt="Convertibles">
-              </div>
-              <a href="/used-cars/convertibles/al/" class="brand-name">Convertibles</a>
-            </li>
-            <li class="general-item">
-              <a href="/used-cars/motorcycles/al/" class="link-cover"></a>
-              <div class="brand-pic type">
-                <img class="brand-icon" src="/public/static/Images/types/motorcycles.webp" alt="Motorcycles">
-              </div>
-              <a href="/used-cars/motorcycles/al/" class="brand-name">Motorcycles</a>
-            </li>
-            <li class="general-item">
-              <a href="/used-cars/classic-cars/al/" class="link-cover"></a>
-              <div class="brand-pic type">
-                <img class="brand-icon" src="/public/static/Images/types/classic-cars.webp" alt="Classic Cars">
-              </div>
-              <a href="/used-cars/classic-cars/al/" class="brand-name">Classic Cars</a>
-            </li>
-            <li class="general-item">
-              <a href="/used-cars/rvs-and-campers/al/" class="link-cover"></a>
-              <div class="brand-pic type">
-                <img class="brand-icon" src="/public/static/Images/types/rvs-and-campers.webp" alt="RVs &amp; Campers">
-              </div>
-              <a href="/used-cars/rvs-and-campers/al/" class="brand-name">RVs &amp; Campers</a>
-            </li>
-            <li class="general-item">
-              <a href="/used-cars/motorhomes/al/" class="link-cover"></a>
-              <div class="brand-pic type">
-                <img class="brand-icon" src="/public/static/Images/types/motorhomes.webp" alt="Motorhomes">
-              </div>
-              <a href="/used-cars/motorhomes/al/" class="brand-name">Motorhomes</a>
-            </li>
-            <li class="general-item">
-              <a href="/used-cars/station-wagons/al/" class="link-cover"></a>
-              <div class="brand-pic type">
-                <img class="brand-icon" src="/public/static/Images/types/station-wagons.webp" alt="Station Wagons">
-              </div>
-              <a href="/used-cars/station-wagons/al/" class="brand-name">Station Wagons</a>
-            </li>
-            <li class="general-item">
-              <a href="/used-cars/trailers/al/" class="link-cover"></a>
-              <div class="brand-pic type">
-                <img class="brand-icon" src="/public/static/Images/types/trailers.webp" alt="Trailers">
-              </div>
-              <a href="/used-cars/trailers/al/" class="brand-name">Trailers</a>
-            </li>
           </ul>
         </div>
         <div class="general-wrap">
@@ -433,7 +342,7 @@
         states.forEach(({ state }) => {
             const abbr = STATE_ABBR[state];
             if (!abbr) return;
-            let next_url = `./types.html?state=${state}`
+            let next_url = `/used-cars/${state}/types`
             const li = document.createElement("li");
             li.className = "general-item";
 
@@ -472,7 +381,7 @@
             if(item.category === 'RVs & Campers'){category_Str = "RVs%20%26%20Campers"}
 
             let next_url =
-                `./list.html?state=${stateName}&category=${category_Str}`;
+                `/used-cars/${category_Str}/${stateName}/list`
 
             const imgBase =
                 "https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/";
@@ -519,7 +428,7 @@
 
         data.forEach(item => {
 
-            let next_url = `./list.html?state=${stateName}&make=${item.make}`
+            let next_url = `/car-makes/${item.make}/${stateName}/list`
 
             const image =
                 item.make_img.replace(

@@ -237,13 +237,6 @@
 
   async function loadDetailPage() {
 
-    // const match =
-    //         window.location.pathname
-    //                 .match(/listing-(\d+)/);
-    //
-    // const params = new URLSearchParams(window.location.search);
-    // const id = params.get("id");
-
     const path = window.location.pathname;
 
     const match = path.match(/detail-(\d+)/);
@@ -457,7 +450,7 @@ ${priceHTML}
       div.innerHTML = `
 <div class="car-item">
 
-<a href="./detail.html?id=${car.id}"
+<a href="/used-cars/detail-${car.id}/"
 class="link-cover"></a>
 
 <div class="car-pic">
@@ -588,7 +581,7 @@ ${
 
 <div class="car-item">
 
-<a href="./detail.html?id=${car.id}"
+<a href="/used-cars/detail-${car.id}/"
 class="link-cover"></a>
 
 <div class="car-pic">
@@ -709,11 +702,17 @@ ${
 
 <script>
   function goForm() {
-    window.location.href = "./form.html";
+
+    const path = window.location.pathname;
+
+    const match = path.match(/detail-(\d+)/);
+    const id = match ? match[1] : null;
+
+    window.location.href = `/used-cars/detail-${id}/form`;
   }
 
   function goState(){
-    window.location.href = "./states.html";
+    window.location.href = "/used-cars/state";
   }
 </script>
 

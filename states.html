@@ -476,7 +476,15 @@
             }
 
             if(!make && !category){
-                next_url = `./types.html?state=${state}`
+                // 获取当前路径
+                const path = window.location.pathname;
+                if (path.includes('/car-makes/')) {
+                    console.log('car-makes Page');
+                    next_url = `/car-makes/${state}/maker`
+                } else if (path.includes('/used-cars/')) {
+                    console.log('used-cars Page');
+                    next_url = `/used-cars/${state}/types`
+                }
             }
 
             li.innerHTML = `

@@ -479,7 +479,7 @@
         let state = null;
 
         if (parts[0] === "used-cars" && parts.length >= 2) {
-            state = parts[1];
+            state = decodeURIComponent(parts[1]);
         }
 
         console.log(state);

@@ -284,7 +284,7 @@
     states.forEach(({ state, total }) => {
       const abbr = STATE_ABBR[state];
       if (!abbr) return;
-      let state_url = `./types.html?state=${state}`
+      let state_url = ` /used-cars/${state}/types`
       const li = document.createElement("li");
       li.className = "category-item";
 
@@ -310,7 +310,7 @@
 
   document.addEventListener("DOMContentLoaded", init);
 
-  document.getElementById("viewAllListings").href = "./states.html"
+  document.getElementById("viewAllListings").href = "/used-cars/state"
 
 </script>
 
@@ -332,7 +332,7 @@
 
   carMakes.forEach(make => {
 
-    const url = `./states.html?make=${encodeURIComponent(make.name)}`;
+    const url = `/car-makes/state?make=${encodeURIComponent(make.name)}`;
 
     const li = document.createElement("li");
     li.className = "car-make-item";
@@ -397,7 +397,7 @@
         if(makeName === 'Suvs'){makeName="SUVs"}
         if(makeName === 'Rvs-And-Campers'){makeName="RVs%20%26%20Campers"}
 
-        const newUrl = `./states.html?category=${encodeURIComponent(makeName)}`;
+        const newUrl = `/used-cars/state?category=${encodeURIComponent(makeName)}`;
 
         link.setAttribute("href", newUrl);
 

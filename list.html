@@ -1694,7 +1694,7 @@
 
     cities.forEach(({ city }) => {
 
-      const slug = city.replace(/\s+/g, '-');
+      const slug = encodeURIComponent(city);
 
       const li = document.createElement('li');
       li.className = 'filter-banner-item';

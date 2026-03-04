@@ -409,7 +409,7 @@
             let next_url = ``
 
             if(!make && !state){
-                next_url = `./states.html?category=${category}`
+                next_url = `/used-cars/state?category=${encodeURIComponent(category)}`
             }
 
             li.innerHTML = `
@@ -468,11 +468,11 @@
 
             let next_url = ``
             if(!make && category){
-                next_url = `./list.html?category=${category}&state=${state}`
+                next_url = `/used-cars/${category}/${state}/list`
             }
 
             if(make && !category){
-                next_url = `./list.html?make=${make}&state=${state}`
+                next_url = `/car-makes/${make}/${state}/list`
             }
 
             if(!make && !category){
@@ -520,7 +520,7 @@
         }
 
         if (make) {
-            el.href = `./states.html?make=${capitalizeFirstLetter(encodeURIComponent(make))}`;
+            el.href = `/car-makes/state?make=${capitalizeFirstLetter(encodeURIComponent(make))}`;
         }
     });
 

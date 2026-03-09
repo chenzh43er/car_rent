@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="./css/style.css">
     <link rel="icon" href="./img/icon.png" type="image/png">
     <script src="./js/utlParam.js"></script>
-<body>
+<body id = "mainBody" style="display:none;">
 <header id="header">
 </header>
 
@@ -491,6 +491,8 @@
         renderCategoriesByState(state);
 
         renderPopularMakes(state);
+
+        document.getElementById("mainBody").style.display = "block"
 
     });
 

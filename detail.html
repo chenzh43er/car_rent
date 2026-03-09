@@ -60,7 +60,7 @@
       }
     }
     </style>
-<body>
+<body id = "mainBody" style="display: none">
 <header id="header">
 </header>
 
@@ -696,6 +696,7 @@ ${
 
     loadAside(data)
 
+    document.getElementById("mainBody").style.display = "block"
   });
 
 </script>

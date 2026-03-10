@@ -464,7 +464,7 @@
     }
 
     /** 页面初始化 */
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", async () => {
 
         const params = new URLSearchParams(window.location.search);
 
@@ -486,11 +486,11 @@
 
         document.getElementById('titleForTypes').innerText = `Used Cars in ${state}`
 
-        renderStateList();
+        await renderStateList();
 
-        renderCategoriesByState(state);
+        await renderCategoriesByState(state);
 
-        renderPopularMakes(state);
+        await renderPopularMakes(state);
 
         document.getElementById("mainBody").style.display = "block"
 

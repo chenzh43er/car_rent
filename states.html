@@ -397,9 +397,9 @@
     /* =========================
        INIT
     ========================= */
-    document.addEventListener("DOMContentLoaded", () => {
-        renderCategoryTypes();
-        renderStateList();
+    document.addEventListener("DOMContentLoaded", async () => {
+        await renderCategoryTypes();
+        await renderStateList();
         document.getElementById("mainBody").style.display = "block"
     });
 </script>

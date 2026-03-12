@@ -11,6 +11,49 @@
   <link rel="icon" href="./img/icon.png" type="image/png">
   <script src="./js/utlParam.js"></script>
   <script src="./js/jquery.min.js"></script>
+  <style>
+    .no-more {
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    .no-more blockquote {
+      position: relative;
+      margin: 0;
+      padding: 12px 16px;
+      font-size: 14px;
+      color: #666;
+      background: #fafafa;
+      border-left: 4px solid #ddd;
+      border-radius: 6px;
+      display: inline-block;
+      max-width: 90%;
+    }
+
+    .no-more blockquote span {
+      display: block;
+      font-weight: 500;
+    }
+
+    .no-more blockquote small {
+      display: block;
+      margin-top: 4px;
+      font-size: 12px;
+      color: #999;
+    }
+
+    /* 两侧分割线 */
+    .no-more::before,
+    .no-more::after {
+      content: "";
+      display: block;
+      height: 1px;
+      background: #eee;
+      margin: 12px auto;
+      width: 80%;
+    }
+  </style>
+
 <body style="display: none" id = "mainBody">
 
 <header id="header">
@@ -87,6 +130,13 @@
 
         </div>
         <div class="car-list" style="height: auto !important;" id = "mainCarList">
+        </div>
+
+        <div class="no-more">
+          <blockquote>
+            <span>没有更多内容了</span>
+            <small>看看其他推荐</small>
+          </blockquote>
         </div>
 
         <div class="car-list" style="height: auto !important;" id = "less3CarList">

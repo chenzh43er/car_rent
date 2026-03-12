@@ -86,8 +86,12 @@
           <span class="sort-title"><span class="general-num"></span>  results found</span>
 
         </div>
-        <div class="car-list" style="height: auto !important;">
+        <div class="car-list" style="height: auto !important;" id = "mainCarList">
         </div>
+
+        <div class="car-list" style="height: auto !important;" id = "less3CarList">
+        </div>
+
         <div class="page-wrap"><div class="brpp_pageGo"><span class="page-back">Previous</span> <a href="" class="page-cur">1</a><a href="/used-cars/suvs/al/?page=2" title="2" class="page-nor">2</a><a href="/used-cars/suvs/al/?page=3" title="3" class="page-nor">3</a><a href="/used-cars/suvs/al/?page=4" title="4" class="page-nor">4</a><p class="pageEllipsis">...</p><a href="/used-cars/suvs/al/?page=886" title="886" class="page-nor">886</a> <a href="/used-cars/suvs/al/?page=2" title="" class="page-next-active">Next<svg class="icon-next"><use xlink:href="#icon-next"></use></svg></a></div></div>
       </div>
       <div class="aside" style="height: auto !important;">
@@ -1020,7 +1024,7 @@
 
 <script type="module">
 
-  import { fetchListings, fetchPopularMakesByState } from './js/supabaseApi.js';
+  import { fetchListings, fetchPopularMakesByState , fetchRandomCarsByState} from './js/supabaseApi.js';
 
   const limit = 15;
 
@@ -1064,7 +1068,7 @@
 
   function renderCars(data) {
 
-    const container = document.querySelector('.car-list');
+    const container = document.getElementById("mainCarList");
 
     container.innerHTML = '';
 
@@ -1122,6 +1126,65 @@
 
   }
 
+  function renderCarsOther(data) {
+
+    const container = document.getElementById("less3CarList");
+
+    container.innerHTML = '';
+
+    data.forEach(car => {
+
+      const image =
+              car.image_cover === '404.jpg'
+                      ? '/public/static/Images/placeholder.webp'
+                      : car.image_cover;
+
+      const div = document.createElement('div');
+
+      div.className = 'car-con';
+
+      const id = car.id
+      let detail_url = `/used-cars/detail-${id}`
+
+      div.innerHTML = `
+            <div class="car-item">
+              <a href="${detail_url}" class="link-cover"></a>
+              <div class="car-pic">
+                <div class="car-pic-pop">POPULAR</div>
+                <img src="https://pub-683228af40b042bb882e1ed4bda118b8.r2.dev/images/${car.image_cover}" alt="${car.title}">
+                <div class="car-pic-tip">
+                  <svg><use xlink:href="#icon-pic"></use></svg>
+                  <span class="car-pic-num">1</span>
+                </div>
+              </div>
+              <div class="car-content ">
+                <div class="car-title">${car.title}</div>
+                <div class="car-info">
+                  <div class="car-info-item">
+                    <svg><use xlink:href="#icon-location"></use></svg>
+                    <span>${car.location}</span>
+                  </div>
+                  <div class="car-info-item">
+                    <svg><use xlink:href="#icon-date"></use></svg>
+                    <span>${car.listing_date}</span>
+                  </div>
+                </div>
+                <div class="car-des">
+                    ${car.summary_description}
+                </div>
+               ${
+              car.price !== null && car.price !== undefined && car.price !== ''
+                      ? `<div class="car-prices">$<span class="car-total">${car.price}</span></div>`
+                      : ''}
+              </div>
+            </div>
+        `;
+
+      container.appendChild(div);
+
+    });
+
+  }
 
   function buildPageUrl(page) {
 
@@ -1328,6 +1391,8 @@
       limit
     });
 
+
+
     const totalElement =
             document.querySelector('.sort-title .general-num');
 
@@ -1346,6 +1411,15 @@
 
 
     renderCars(result.data);
+
+    if(result.data.length <= 3 ){
+
+      console.log("Result < 3")
+
+      const resultLess3 = await fetchListings(state)
+
+      renderCarsOther(resultLess3.data)
+    }
 
     renderPagination(
             result.page,

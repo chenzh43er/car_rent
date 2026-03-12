@@ -295,6 +295,19 @@ export async function fetchMakesByState(state) {
     }
 }
 
+export async function fetchRandomCarsByState(state) {
+    try {
+        const { data, error } = await supabase.rpc('get_random_cars_by_state', {
+            p_state: state
+        });
 
+        if (error) throw error;
+
+        return { data, error: null };
+    } catch (err) {
+        console.error('fetchRandomCarsByState 错误:', err);
+        return { data: null, error: err.message };
+    }
+}
 
 

@@ -1416,7 +1416,7 @@
 
       console.log("Result < 3")
 
-      const resultLess3 = await fetchListings(state)
+      const resultLess3 = await fetchRandomCarsByState(state)
 
       renderCarsOther(resultLess3.data)
     }

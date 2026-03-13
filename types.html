@@ -466,6 +466,8 @@
     /** 页面初始化 */
     document.addEventListener("DOMContentLoaded", async () => {
 
+        document.title = `Choose your Car types`
+
         const params = new URLSearchParams(window.location.search);
 
         const make = params.get("make");

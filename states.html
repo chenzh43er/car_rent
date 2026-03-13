@@ -310,6 +310,8 @@
     ========================= */
     async function renderStateList() {
 
+        document.title = `Choose your state`
+
         const { data: states, error } = await fetchAllStates();
 
         if (error) {

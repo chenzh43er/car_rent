@@ -14,6 +14,7 @@
     .no-more {
       margin: 30px 0;
       text-align: center;
+      display: none;
     }
 
     .no-more blockquote {
@@ -130,7 +131,7 @@
         <div class="car-list" style="height: auto !important;" id = "mainCarList">
         </div>
 
-        <div class="no-more">
+        <div class="no-more" id = "no-more">
           <blockquote>
             <span>No more content</span>
             <small>Check out other recommendations</small>
@@ -1465,6 +1466,8 @@
       console.log("Result < 3")
 
       const resultLess3 = await fetchRandomCarsByState(state)
+
+      document.getElementById("no-more").style.display = "block"
 
       renderCarsOther(resultLess3.data)
     }

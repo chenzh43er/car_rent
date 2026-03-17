@@ -4325,7 +4325,29 @@ h2 {
     padding-bottom: 24px;
     border-bottom: 1px solid #eee;
     margin-bottom:24px;
-    display: none;
+}
+
+@media (max-width: 768px) {
+
+    .filter-scroll-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 10px;
+
+        overflow-x: unset;
+        white-space: normal;
+    }
+
+    .filter-banner-btn {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .filter-banner-btn.price {
+        grid-column: span 2;
+    }
+
 }
 
 .filter-scroll-container {

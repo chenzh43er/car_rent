@@ -39,7 +39,7 @@ export async function fetchAllStates() {
 export async function fetchCategoriesByState(stateName) {
     try {
         const { data, error } = await supabase.rpc(
-            'fetchCategoriesByState',
+            'get_categories_by_state',
             { p_state: stateName } // <-- 改成实际参数名
         );
 

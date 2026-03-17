@@ -4331,9 +4331,10 @@ h2 {
 
     .filter-scroll-container {
         display: grid !important;
-        grid-template-columns: repeat(3, 1fr); /* 一行3个 */
+        grid-template-columns: repeat(2, 1fr); /* 关键：2列 */
         gap: 10px;
         padding: 10px;
+
         overflow-x: unset;
         white-space: normal;
     }
@@ -4343,9 +4344,15 @@ h2 {
         justify-content: space-between;
     }
 
+    /* type 或 make 占满一整行 */
+    .filter-banner-btn.type,
+    .filter-banner-btn.make {
+        grid-column: span 2;
+    }
+
     /* price 单独一行 */
     .filter-banner-btn.price {
-        grid-column: span 3;
+        grid-column: span 2;
     }
 
 }

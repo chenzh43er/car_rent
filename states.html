@@ -399,9 +399,10 @@
        INIT
     ========================= */
     document.addEventListener("DOMContentLoaded", async () => {
-        await renderCategoryTypes();
         await renderStateList();
-        document.getElementById("mainBody").style.display = "block"
+        setTimeout(() => {
+            renderCategoryTypes();
+        }, 100); // 延迟一点点
     });
 </script>
 

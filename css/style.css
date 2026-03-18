@@ -1162,7 +1162,7 @@ footer {
     max-height:300px;
 }
 .filter-banner-list {
-    width:160px;
+    width: 100%;
 }
 
 .sort-btn.expand .sort-list,
@@ -4353,6 +4353,7 @@ h2 {
     /* price 单独一行 */
     .filter-banner-btn.price {
         grid-column: span 2;
+        width: 100%;
     }
 
 }
@@ -4372,7 +4373,7 @@ h2 {
 }
 .filter-slide-wrap.make,
 .filter-banner-btn.make {
-    width:calc((100% - 64px) / 4);
+    width: 100%;;
 }
 .price-range-wrap {
     padding: 12px;

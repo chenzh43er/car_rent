@@ -1319,7 +1319,7 @@
     }
 
 
-    if (page < totalPages) {
+    if (page < totalPages && totalPages > 1) {
 
       container.innerHTML += `
         <a href="${buildPageUrl(page+1)}"
@@ -1328,7 +1328,7 @@
         </a>
         `;
 
-    } else if(totalPages != 0){
+    } else if(totalPages > 1){
 
       container.innerHTML += `
         <span class="page-next">

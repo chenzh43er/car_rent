@@ -603,6 +603,24 @@ ${
 
   }
 
+  async function safeFetch(fn, retries = 2) {
+    try {
+      return await fn();
+    } catch (err) {
+      console.warn(`请求失败: ${fn.name}，重试中...`, err);
+
+      if (retries <= 0) {
+        console.error(`最终失败: ${fn.name}`);
+        return null;
+      }
+
+      // 延迟一点再重试（避免再次打爆数据库）
+      await new Promise(res => setTimeout(res, 300));
+
+      return safeFetch(fn, retries - 1);
+    }
+  }
+
   /*
   ========================================
   Init
@@ -610,19 +628,22 @@ ${
   */
 
   document.addEventListener("DOMContentLoaded", async () => {
+    try {
+      document.title = "Used Car Result";
 
-    document.title = "Used Car Result"
+      // ===== 1. 关键数据（必须等）=====
+      const data = await safeFetch(loadDetailPage);
 
-    const data = await loadDetailPage();
+      // ===== 2. 立即显示页面（关键优化）=====
+      document.getElementById("mainBody").style.display = "block";
 
-    // console.log(data);
+      // ===== 3. 非关键内容（不要阻塞）=====
+      safeFetch(() => loadBottom(data));
+      safeFetch(() => loadAside(data));
 
-    await loadBottom(data)
-
-    await loadAside(data)
-
-    document.getElementById("mainBody").style.display = "block"
-
+    } catch (err) {
+      console.error("页面加载失败:", err);
+    }
   });
 
 </script>

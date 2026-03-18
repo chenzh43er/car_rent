@@ -679,6 +679,24 @@ ${
 
   }
 
+  async function safeFetch(fn, retries = 2) {
+    try {
+      return await fn();
+    } catch (err) {
+      console.warn(`请求失败: ${fn.name}，重试中...`, err);
+
+      if (retries <= 0) {
+        console.error(`最终失败: ${fn.name}`);
+        return null;
+      }
+
+      // 延迟一点再重试（避免再次打爆数据库）
+      await new Promise(res => setTimeout(res, 300));
+
+      return safeFetch(fn, retries - 1);
+    }
+  }
+
   /*
   ========================================
   Init

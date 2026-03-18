@@ -1341,7 +1341,8 @@ footer {
 }
 .brpp_pageGo {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;  /* 水平 */
+    align-items: center;      /* 垂直 */
 }
 .page-back-active svg,
 .page-next-active svg {

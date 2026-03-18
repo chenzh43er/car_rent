@@ -2041,68 +2041,129 @@
     });
   }
 
-  renderStates();
-  renderCities();
+  async function safeFetch(fn, retries = 2) {
+    try {
+      return await fn();
+    } catch (err) {
+      console.warn(`请求失败: ${fn.name}，重试中...`, err);
 
-  const param = new URLSearchParams(window.location.search);
-  const segments = window.location.pathname.split("/").filter(Boolean);
+      if (retries <= 0) {
+        console.error(`最终失败: ${fn.name}`);
+        return null;
+      }
 
-  // ===== query 参数 =====
-  let minprice = param.get("minprice") || "";
-  let maxprice = param.get("maxprice") || "";
+      // 延迟一点再重试（避免再次打爆数据库）
+      await new Promise(res => setTimeout(res, 300));
 
-  // ===== 初始化 =====
-  let make = "";
-  let category = "";
-  let state = "";
-  let city = "";
-
-  /*
-  URL 结构固定为：
-
-  0  car-makes / used-cars
-  1  honda / suvs
-  2  state
-  3  list (固定)
-  4  city (动态)
-  */
-
-  if (segments[3] === "list") {
-    state = segments[2] || "";
-    city = segments[4] || "";
-
-    if (segments[0] === "car-makes") {
-      make = segments[1] || "";
-    }
-
-    if (segments[0] === "used-cars") {
-      category = segments[1] || "";
+      return safeFetch(fn, retries - 1);
     }
   }
 
-  // console.log({
-  //   make,
-  //   category,
-  //   state,
-  //   city,
-  //   minprice,
-  //   maxprice
-  // });
+  // renderStates();
+  // renderCities();
+  //
+  // const param = new URLSearchParams(window.location.search);
+  // const segments = window.location.pathname.split("/").filter(Boolean);
+  //
+  // // ===== query 参数 =====
+  // let minprice = param.get("minprice") || "";
+  // let maxprice = param.get("maxprice") || "";
+  //
+  // // ===== 初始化 =====
+  // let make = "";
+  // let category = "";
+  // let state = "";
+  // let city = "";
+  //
+  // if (segments[3] === "list") {
+  //   state = segments[2] || "";
+  //   city = segments[4] || "";
+  //
+  //   if (segments[0] === "car-makes") {
+  //     make = segments[1] || "";
+  //   }
+  //
+  //   if (segments[0] === "used-cars") {
+  //     category = segments[1] || "";
+  //   }
+  // }
+  //
+  // if (!make) {
+  //   make = ""
+  //   document.getElementById("filter-banner-btn-type").style.display = "flex"
+  //   renderCategories();
+  // }
+  //
+  // if (!category) {
+  //   category = ""
+  //   document.getElementById("filter-banner-btn-make").style.display = "flex"
+  //   renderMakes();
+  // }
 
-  if (!make) {
-    make = ""
-    document.getElementById("filter-banner-btn-type").style.display = "flex"
-    renderCategories();
-  }
 
-  if (!category) {
-    category = ""
-    document.getElementById("filter-banner-btn-make").style.display = "flex"
-    renderMakes();
-  }
+  document.addEventListener("DOMContentLoaded", async () => {
+    try {
+      // ===== 解析 URL =====
+      const param = new URLSearchParams(window.location.search);
+      const segments = window.location.pathname.split("/").filter(Boolean);
 
+      let minprice = param.get("minprice") || "";
+      let maxprice = param.get("maxprice") || "";
 
+      let make = "";
+      let category = "";
+      let state = "";
+      let city = "";
 
+      if (segments[3] === "list") {
+        state = segments[2] || "";
+        city = segments[4] || "";
+
+        if (segments[0] === "car-makes") {
+          make = segments[1] || "";
+        }
+
+        if (segments[0] === "used-cars") {
+          category = segments[1] || "";
+        }
+      }
+
+      // ===== UI 控制 =====
+      if (!make) {
+        document.getElementById("filter-banner-btn-type").style.display = "flex";
+      }
+
+      if (!category) {
+        document.getElementById("filter-banner-btn-make").style.display = "flex";
+      }
+
+      // ===== 第一批：轻量请求（并发）=====
+      await Promise.all([
+        safeFetch(renderStates),
+        safeFetch(renderCities)
+      ]);
+
+      // ===== 第二批：稍重请求（条件触发）=====
+      const secondBatch = [];
+
+      if (!make) {
+        secondBatch.push(safeFetch(renderCategories));
+      }
+
+      if (!category) {
+        secondBatch.push(safeFetch(renderMakes));
+      }
+
+      // 控制并发（最多2个）
+      await Promise.all(secondBatch);
+
+      // ===== 页面显示 =====
+      document.getElementById("mainBody").style.display = "block";
+
+    } catch (err) {
+      console.error("页面初始化失败:", err);
+    }
+  });
 
 
 </script>

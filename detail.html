@@ -686,16 +686,22 @@ ${
   */
 
   document.addEventListener("DOMContentLoaded", async () => {
+    try {
+      // ===== 先加载核心数据 =====
+      const data = await safeFetch(loadDetailPage);
 
-    const data = await loadDetailPage();
+      // ===== 先把页面显示出来（关键！）=====
+      document.getElementById("mainBody").style.display = "block";
 
-    // console.log(data);
+      // ===== 非核心内容并发加载 =====
+      await Promise.all([
+        safeFetch(() => loadBottom(data)),
+        safeFetch(() => loadAside(data))
+      ]);
 
-    await loadBottom(data)
-
-    await loadAside(data)
-
-    document.getElementById("mainBody").style.display = "block"
+    } catch (err) {
+      console.error("页面加载失败:", err);
+    }
   });
 
 </script>

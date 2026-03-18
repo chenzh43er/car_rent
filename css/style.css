@@ -4369,11 +4369,11 @@ h2 {
 }
 .filter-slide-wrap,
 .filter-banner-btn {
-    width:calc((100% - 64px) / 5);
+    width: 100%;
 }
 .filter-slide-wrap.make,
 .filter-banner-btn.make {
-    width: 100%;;
+    width: 100%;
 }
 .price-range-wrap {
     padding: 12px;

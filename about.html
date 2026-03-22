@@ -17,21 +17,8 @@
 <main>
     <div class="filter-cover"></div>
     <div class="main">
-        <div class="about_us">
-            <h1>About Us</h1>
-            <p>Welcome to Carslyst.com, your ideal destination for finding budget-friendly cars, offering the latest information on used cars for sale in America. We are neither dealers nor brokers and do not receive payment from your purchase. Our platform connects buyers and sellers, ensuring you find your dream car effortlessly and enjoyably.</p>
-            <h3>Our Features</h3>
-            <p>Led by a professional and experienced team dedicated to collecting comprehensive data, Carslyst establishes credibility among users through the following attributes:</p>
-            <p>1. Extensive Listings: We offer a wide range of vehicle categories, including classic cars, SUVs, sedans, motorcycles, and more, ensuring you can find whatever you need at Carslyst.</p>
-            <p>2. User-Friendly Interface: Our website is designed for intuitive navigation, providing a smooth browsing experience and making it easier for users to find exactly what they’re looking for.</p>
-            <p>3. Verified Listings: We carefully vet all listings on our platform to ensure they meet our standards for trustworthiness and credibility.</p>
-            <h3>Disclaimer</h3>
-            <p>1. Accuracy of Information: While we strive to maintain accurate and up-to-date information, we encourage users to independently verify details to ensure accuracy before making any decisions.</p>
-            <p>2. Third-Party Content: Carslyst.com may include links to third-party websites or services. We do not endorse or assume responsibility for the content, products, or services provided by these external sites. We advise users to review the terms and privacy policies of these sites before engaging with them.</p>
-            <p>3. User Responsibility: Users are solely responsible for their interactions and transactions with other users or advertisers on Carslyst.com. We do not monitor or mediate these interactions and are not liable for any disputes, damages, or losses that may occur.</p>
-            <p>4.Safety and Security: Although we take steps to ensure a secure online environment, users should be cautious when sharing personal information or conducting transactions on our platform. Stay alert for potential scams or fraudulent activities and report any suspicious behavior to us right away.</p>
-            <p>5. Changes to Terms: Carslyst.com reserves the right to modify or update this disclaimer at any time without prior notice. By continuing to use our website, you agree to comply with the latest version of this disclaimer.</p>
-            <p>By accessing and using Carslyst.com, you acknowledge and accept the terms outlined in this disclaimer. If you have any questions or concerns, please contact us for further assistance.</p>        </div>
+        <div class="about_us" id = "aboutUsDiv">
+        </div>
     </div>
 </main>
 
@@ -70,6 +57,27 @@
         });
 
     document.title = `About us`
+
+    let hostUrl = window.location.hostname
+
+    document.getElementById("aboutUsDiv").innerHTML = `
+    <h1>About Us</h1>
+            <p>Welcome to ${hostUrl}, your ideal destination for finding budget-friendly cars, offering the latest information on used cars for sale in America. We are neither dealers nor brokers and do not receive payment from your purchase. Our platform connects buyers and sellers, ensuring you find your dream car effortlessly and enjoyably.</p>
+            <h3>Our Features</h3>
+            <p>Led by a professional and experienced team dedicated to collecting comprehensive data, Carslyst establishes credibility among users through the following attributes:</p>
+            <p>1. Extensive Listings: We offer a wide range of vehicle categories, including classic cars, SUVs, sedans, motorcycles, and more, ensuring you can find whatever you need at Carslyst.</p>
+            <p>2. User-Friendly Interface: Our website is designed for intuitive navigation, providing a smooth browsing experience and making it easier for users to find exactly what they’re looking for.</p>
+            <p>3. Verified Listings: We carefully vet all listings on our platform to ensure they meet our standards for trustworthiness and credibility.</p>
+            <h3>Disclaimer</h3>
+            <p>1. Accuracy of Information: While we strive to maintain accurate and up-to-date information, we encourage users to independently verify details to ensure accuracy before making any decisions.</p>
+            <p>2. Third-Party Content: ${hostUrl} may include links to third-party websites or services. We do not endorse or assume responsibility for the content, products, or services provided by these external sites. We advise users to review the terms and privacy policies of these sites before engaging with them.</p>
+            <p>3. User Responsibility: Users are solely responsible for their interactions and transactions with other users or advertisers on ${hostUrl}. We do not monitor or mediate these interactions and are not liable for any disputes, damages, or losses that may occur.</p>
+            <p>4.Safety and Security: Although we take steps to ensure a secure online environment, users should be cautious when sharing personal information or conducting transactions on our platform. Stay alert for potential scams or fraudulent activities and report any suspicious behavior to us right away.</p>
+            <p>5. Changes to Terms: ${hostUrl} reserves the right to modify or update this disclaimer at any time without prior notice. By continuing to use our website, you agree to comply with the latest version of this disclaimer.</p>
+            <p>By accessing and using ${hostUrl}, you acknowledge and accept the terms outlined in this disclaimer. If you have any questions or concerns, please contact us for further assistance.</p>
+
+    `
+
 </script>
 
 </body>

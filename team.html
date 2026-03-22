@@ -17,23 +17,9 @@
 <main>
   <div class="filter-cover"></div>
   <div class="main">
-    <div class="about_us">
-      <h1>Terms of Service</h1>
-      <p>The Terms of Use ("Terms") govern your access to and utilization of our website, including all content, features, and services provided on or through the site (collectively, the "Services"). By accessing or using our Services, you confirm that you have read, understood, and agree to be bound by these Terms. If you do not agree with these Terms, please refrain from accessing or using our Services.</p>
-      <h3>Use of Services</h3>
-      <p>You agree to utilize our Services solely for lawful purposes and in compliance with these Terms. You must not use our Services in any manner that violates applicable laws or regulations or infringes on the rights of others.</p>
-      <h3>Intellectual Property</h3>
-      <p>All materials on Carslyst.com, including but not limited to design, layout, and content, are owned by our company. These materials are for individual and non-commercial use only. Unauthorized copying of these materials is prohibited and may result in legal action.</p>
-      <h3>User Contributions</h3>
-      <p>You may have the opportunity to submit or post content, such as comments, reviews, or other information ("User Contributions") on our website. By submitting User Contributions, you grant us a non-exclusive, royalty-free, perpetual, irrevocable, and fully sublicensable right to use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, and display such User Contributions worldwide in any media.</p>
-      <h3>Privacy</h3>
-      <p>Your privacy is important to us. Please review our Privacy Policy to understand how we collect, use, and disclose your information.</p>
-      <h3>Limitation of Liability</h3>
-      <p>To the fullest extent permitted by law, we shall not be liable for any direct, indirect, incidental, consequential, special, or exemplary damages arising from or in connection with your use of our Services.</p>
-      <h3>Modification and Termination</h3>
-      <p>We reserve the right to modify or terminate our Services, in whole or in part, at any time without prior notice. We may also update these Terms periodically. Your continued use of our Services following any modifications to these Terms will constitute your acceptance of the revised Terms.</p>
-      <h3>Contact Information</h3>
-      <p>For any questions or concerns about these Terms or our Services, please contact us at support@carslyst.com.</p>        </div>
+    <div class="about_us"  id = "aboutUsDiv">
+
+    </div>
   </div>
 </main>
 <footer  id="footer">
@@ -70,6 +56,27 @@
           });
 
   document.title = `Used Car Terms of Service`
+
+  let hostUrl = window.location.hostname
+
+  document.getElementById("aboutUsDiv").innerHTML = `
+      <h1>Terms of Service</h1>
+      <p>The Terms of Use ("Terms") govern your access to and utilization of our website, including all content, features, and services provided on or through the site (collectively, the "Services"). By accessing or using our Services, you confirm that you have read, understood, and agree to be bound by these Terms. If you do not agree with these Terms, please refrain from accessing or using our Services.</p>
+      <h3>Use of Services</h3>
+      <p>You agree to utilize our Services solely for lawful purposes and in compliance with these Terms. You must not use our Services in any manner that violates applicable laws or regulations or infringes on the rights of others.</p>
+      <h3>Intellectual Property</h3>
+      <p>All materials on ${hostUrl}, including but not limited to design, layout, and content, are owned by our company. These materials are for individual and non-commercial use only. Unauthorized copying of these materials is prohibited and may result in legal action.</p>
+      <h3>User Contributions</h3>
+      <p>You may have the opportunity to submit or post content, such as comments, reviews, or other information ("User Contributions") on our website. By submitting User Contributions, you grant us a non-exclusive, royalty-free, perpetual, irrevocable, and fully sublicensable right to use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, and display such User Contributions worldwide in any media.</p>
+      <h3>Privacy</h3>
+      <p>Your privacy is important to us. Please review our Privacy Policy to understand how we collect, use, and disclose your information.</p>
+      <h3>Limitation of Liability</h3>
+      <p>To the fullest extent permitted by law, we shall not be liable for any direct, indirect, incidental, consequential, special, or exemplary damages arising from or in connection with your use of our Services.</p>
+      <h3>Modification and Termination</h3>
+      <p>We reserve the right to modify or terminate our Services, in whole or in part, at any time without prior notice. We may also update these Terms periodically. Your continued use of our Services following any modifications to these Terms will constitute your acceptance of the revised Terms.</p>
+      <h3>Contact Information</h3>
+      <p>For any questions or concerns about these Terms or our Services, please contact us at support@${hostUrl}.</p>
+  `
 </script>
 </body>
 </html>

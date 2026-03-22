@@ -17,12 +17,9 @@
 <main>
   <div class="filter-cover"></div>
   <div class="main">
-    <div class="about_us">
-      <h1>Contact Us</h1>
-      <p>For any questions, suggestions or concerns about Carslyst.com, please feel free to contact us via support@carslyst.com. Your emails will be replied promptly.</p>
-      <h3>Please Note:</h3>
-      <p>The classified ads displayed on the website are not affiliated with us. If you have any questions about their services, please contact them directly.</p>        </div>
-  </div>
+    <div class="about_us" id = "aboutUsDiv">
+
+    </div>
 </main>
 
 <footer  id="footer">
@@ -60,6 +57,15 @@
           });
 
   document.title = "Contact Us"
+
+  let hostUrl = window.location.hostname
+
+  document.getElementById("aboutUsDiv").innerHTML = `
+  <h1>Contact Us</h1>
+      <p>For any questions, suggestions or concerns about ${hostUrl}, please feel free to contact us via support@${hostUrl}. Your emails will be replied promptly.</p>
+      <h3>Please Note:</h3>
+      <p>The classified ads displayed on the website are not affiliated with us. If you have any questions about their services, please contact them directly.</p>        </div>
+`
 </script>
 
 </body>
